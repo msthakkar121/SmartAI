@@ -156,6 +156,12 @@ source ~/.bashrc
 sudo apt-get install unixodbc-dev
 ```
 
+Get all unixODBC information
+> odbcinst -j
+
+Get Driver Information:
+> cat /etc/odbcinst.ini
+
 #### Windows
 
 The driver is installed when you run `msodbcsql.msi` from one of the downloads for Windows from the following link:
