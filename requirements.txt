@@ -1,0 +1,15 @@
+amqp==1.4.9
+anyjson==0.3.3
+asgiref==3.2.10
+billiard==3.3.0.23
+celery==3.1.18
+Django==3.0.7
+djangorestframework==3.11.0
+kombu==3.0.37
+numpy==1.19.0
+pandas==1.0.5
+python-dateutil==2.8.1
+pytz==2020.1
+redis==2.10.3
+six==1.15.0
+sqlparse==0.3.1

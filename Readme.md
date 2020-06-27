@@ -1,0 +1,144 @@
+# SmartAI
+
+Smart way of mapping candidates to the job requirements.
+
+## Prerequisites
+
+* Make sure you have update all system `apt` packages (Ubuntu)
+  
+  `sudo apt-get update && sudo apt-get upgrade`
+
+* Requires `Python >= 3.6` and `pip`
+
+    * Check installation version: `python --version`
+ 
+    * Install (Ubuntu): `sudo apt-get update && sudo apt-get install python3.6`
+
+    * Install (Windows): https://docs.python.org/3/using/windows.html#installation-steps
+
+* Requires `virtualenv`
+    
+    * Install: `pip install virtualenv`
+
+* Requires `virtualenvwrapper` on windows
+    
+    * Install (Windows): `pip install virtualenvwrapper-win`
+
+## Setup Virtual Environment & Other Configurations
+
+#### Create Virtual Environment
+
+> virtualenv -p python3 venv
+
+
+#### Activate Virtualenv
+
+[Ubuntu]
+> source venv/bin/activate
+
+[Windows]
+> venv\Scripts\activate.bat
+
+
+#### Deactivate Virtualenv
+
+> deactivate
+
+
+#### Install Requirements
+
+> `pip install -r requirements.txt`
+
+#### Run server locally
+> python manage.py runserver
+
+#### You can access home page here
+> 127.0.0.1:8000
+
+#### To get all available commands:
+> python manage.py --help
+
+#### Check for Migrations
+> python manage.py makemigrations
+
+#### Migrate Tables
+> python manage.py migrate
+
+## Install Redis
+
+Our task scheduling mechanism (Celery) uses `brokers` to pass message between 
+our django project and the workers for our tasks. We will be using redis as a 
+broker for our project. More information on celery can be found on 
+https://docs.celeryproject.org/en/stable/ and on redis can be found on 
+https://redis.io/. Please install redis on the machine using the following 
+instructions depending on your operating system. 
+
+
+#### Ubuntu
+
+> wget http://download.redis.io/redis-stable.tar.gz
+
+> tar xvzf redis-stable.tar.gz
+
+> cd redis-stable
+
+> make
+
+Copy both the Redis server and the Redis CLI into the PATH variable location
+of your machine. You can use the following commands:
+
+> sudo cp src/redis-server /usr/local/bin/
+
+> sudo cp src/redis-cli /usr/local/bin/
+
+Alternatively, you can simply use the `sudo make install` command to do the job. 
+
+#### Windows
+
+* Visit the Redis Github repository at https://github.com/MicrosoftArchive/redis/
+
+* Scroll down to the “Redis on Windows” section and click on the release page link.
+
+* Find the latest version and download the .msi file.
+
+* Run the .msi file and follow the Setup Wizard instructions. make sure to check the 
+  “Add the Redis installation folder to the Path environment variable” checkbox.
+  
+* After the installation is completed, you might want to check the PATH variable on 
+  your machine for the location of your Redis installation. If it does not contain one, 
+  you need to add it manually. The location generally is `C:\Program Files\Redis\` but 
+  do check once.
+  
+#### Testing the Redis Installation
+
+Use the following command to fire up your redis server:
+> redis-server
+
+If the installation is fine, you will be able to see a message that the server has started.
+
+You can test that Redis is working properly by executing the following command from your terminal:
+
+> redis-cli ping 
+
+If the redis replies with `PONG`, it means that that things are working fine. 
+
+## Running Locally
+
+#### Run Django Server
+
+> python manage.py runserver
+
+
+#### Run Redis Server
+
+> redis-server
+
+
+#### Run Celery Worker
+
+> celery -A smart_ai worker -l info
+
+
+#### Run Celery Beat
+
+> celery -A smart_ai beat -l info
