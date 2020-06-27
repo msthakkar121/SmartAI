@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils import timezone
+from datetime import datetime
 
 
 # Create your models here.
@@ -14,7 +14,7 @@ class TaskExecutionTimings(models.Model):
     ]
 
     task_name = models.CharField(max_length=100, choices=task_names, unique=True, null=False)
-    last_execution_time = models.DateTimeField(default=timezone.now,
+    last_execution_time = models.DateTimeField(default=datetime.now,
                                                help_text='The created/updated time for the last record fetched by the task.')
 
     class Meta:
