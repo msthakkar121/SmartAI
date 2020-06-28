@@ -1,7 +1,6 @@
-from _datetime import datetime
-
 from django.core.management.base import BaseCommand
-from django.conf import settings
+from knight.db_scripts.fetch_all_candidates import FetchALlCandidates
+from datetime import datetime
 
 
 # python manage.py fetch_all_candidates
@@ -15,5 +14,9 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        print('Fetching All Commands...\nYet to be implemented...\nPlease check later...')
-        pass
+        # print('Fetching All Commands...\nYet to be implemented...\nPlease check later...')
+        print(datetime.now())
+        obj = FetchALlCandidates()
+        obj.fetch_all_candidates()
+        print(datetime.now())
+        return
