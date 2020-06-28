@@ -1,6 +1,3 @@
-import time
-from datetime import datetime
-
 from django.core import management
 
 from celery.schedules import crontab
@@ -17,9 +14,9 @@ logger = get_task_logger(__name__)
 )
 def task_test():
     """
-    Print message
+    Test task calls a custom django management command
     """
-    
+
     management.call_command('fetch_all_candidates')
     # logger.info("Test task printed time!")
     return
