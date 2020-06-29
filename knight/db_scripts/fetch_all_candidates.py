@@ -112,6 +112,6 @@ class FetchALlCandidates:
                     cm.ModifiedDate DESC
         """
         print(settings.DB_DRIVER, settings.DB_SERVER, settings.DB_NAME, settings.DB_USER, settings.DB_PASSWORD)
-        df = pd.read_sql_query(query, self.conn)
+        df = pd.read_sql_query(query, self.connection)
         print(df)
         return
