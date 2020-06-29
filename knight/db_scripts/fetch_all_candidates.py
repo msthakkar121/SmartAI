@@ -5,13 +5,12 @@ from django.conf import settings
 
 import pandas as pd
 
-# Get directory for 'Knight'
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Get base directory - 'SmartAI'
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 class FetchALlCandidates:
     def __init__(self):
-        print(settings.DB_DRIVER, settings.DB_SERVER, settings.DB_NAME, settings.DB_USER, settings.DB_PASSWORD)
         self.connection = pyodbc.connect(DRIVER=settings.DB_DRIVER,
                                          SERVER=settings.DB_SERVER,
                                          DATABASE=settings.DB_NAME,
@@ -111,7 +110,7 @@ class FetchALlCandidates:
                 ORDER BY
                     cm.ModifiedDate DESC
         """
-        print(settings.DB_DRIVER, settings.DB_SERVER, settings.DB_NAME, settings.DB_USER, settings.DB_PASSWORD)
+
         df = pd.read_sql_query(query, self.connection)
-        print(df)
+        print(df, '\n\nFetched ', len(df), 'candidates from the database.')
         return

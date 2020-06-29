@@ -14,9 +14,6 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        # print('Fetching All Commands...\nYet to be implemented...\nPlease check later...')
-        print(datetime.now())
         obj = FetchALlCandidates()
         obj.fetch_all_candidates()
-        print(datetime.now())
         return
