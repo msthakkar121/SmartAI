@@ -14,9 +14,9 @@ logger = get_task_logger(__name__)
 )
 def task_test():
     """
-    Test task calls a custom django management command
+    Test task
     """
-
-    management.call_command('fetch_all_candidates')
+    print('Test task that runs every minute!!!')
+    # management.call_command('fetch_all_candidates')
     # logger.info("Test task printed time!")
     return

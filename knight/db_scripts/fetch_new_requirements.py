@@ -5,10 +5,12 @@ import pyodbc
 from django.conf import settings
 
 import pandas as pd
+from django.utils.timezone import make_aware
+
 from ration.models import TaskExecutionTimings
 
 # Get base directory - 'SmartAI'
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 class FetchNewRequirements:
@@ -82,7 +84,9 @@ class FetchNewRequirements:
         """.format(last_executed_time)
 
         df = pd.read_sql_query(query, self.connection)
-        print(df)
+        obj.last_execution_time = make_aware(datetime.now())
+        obj.save()
 
+        print(df)
         print('\n\nFetched ', len(df), ' new requirements from ', last_executed_time, ' to ', now)
         return
