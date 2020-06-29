@@ -187,4 +187,6 @@ https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-s
 
 #### Run Celery Beat
 
+Todo: https://docs.celeryproject.org/en/latest/userguide/periodic-tasks.html#using-custom-scheduler-classes
+
 > celery -A smart_ai beat -l info
