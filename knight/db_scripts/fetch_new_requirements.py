@@ -68,17 +68,17 @@ class FetchNewRequirements:
                     rm.CreatedDate,
                     rm.ModifiedDate
                 FROM
-                    dbo.RequirementMaster rm
+                    dbo.RequirementMaster rm WITH (NOLOCK)
                 LEFT JOIN
-                    dbo.JobTitleMaster jtm ON rm.JobTitleID = jtm.JobTitleID
+                    dbo.JobTitleMaster jtm WITH (NOLOCK) ON rm.JobTitleID = jtm.JobTitleID
                 LEFT JOIN
-                    dbo.JobTypeMaster jtm2 ON rm.JobTypeID = jtm2.JobTypeID
+                    dbo.JobTypeMaster jtm2 WITH (NOLOCK) ON rm.JobTypeID = jtm2.JobTypeID
                 LEFT JOIN 
-                    dbo.RequirementVisa rv ON rm.RequirementID = rv.RequirementID
+                    dbo.RequirementVisa rv WITH (NOLOCK) ON rm.RequirementID = rv.RequirementID
                 LEFT JOIN
-                    dbo.VisaMaster vm ON rv.VisaID = vm.VisaID
+                    dbo.VisaMaster vm WITH (NOLOCK) ON rv.VisaID = vm.VisaID
                 LEFT JOIN
-                    dbo.RequirementSkill rs ON rm.RequirementID = rs.RequirementID
+                    dbo.RequirementSkill rs WITH (NOLOCK) ON rm.RequirementID = rs.RequirementID
                 WHERE
                     rm.CreatedDate > '{0}'
         """.format(last_executed_time)

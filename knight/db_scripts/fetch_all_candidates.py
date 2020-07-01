@@ -50,10 +50,7 @@ class FetchALlCandidates:
                     ed.TotalYears AS TotalExperience,
                     ed.USExperience,
                     cr.ResumeContent,
-                    dcr.HTMLResumeContent,
                     jspm.JobSearchPriorityText AS JobSearchStatus,
-                    cped.LinkedInProfileUrl,
-                    cped.Certification,
                     red.DegreeName AS HighestDegree,
                     red.PassingYear,
                     red.IsGraduate,	
@@ -74,39 +71,39 @@ class FetchALlCandidates:
                     cm.CreatedDate,
                     cm.ModifiedDate AS UpdatedDate
                 FROM 
-                    dbo.CandidateMaster cm
+                    dbo.CandidateMaster cm WITH (NOLOCK)
                 LEFT JOIN
-                    dbo.CandidateContactTxn cct ON cm.CandidateID = cct.CandidateID
+                    dbo.CandidateContactTxn cct WITH (NOLOCK) ON cm.CandidateID = cct.CandidateID
                 LEFT JOIN 
-                    dbo.AddressMaster am ON cct.AddressID = am.AddressID
+                    dbo.AddressMaster am WITH (NOLOCK) ON cct.AddressID = am.AddressID
                 LEFT JOIN
-                    dbo.ZIPCodeMaster zm ON am.ZIPCodeID = zm.ZIPCodeID
+                    dbo.ZIPCodeMaster zm WITH (NOLOCK) ON am.ZIPCodeID = zm.ZIPCodeID
                 LEFT JOIN
-                    dbo.CandidatePortal cp ON cm.CandidateID = cp.CandidateID
+                    dbo.CandidatePortal cp WITH (NOLOCK) ON cm.CandidateID = cp.CandidateID
                 LEFT JOIN
-                    dbo.CandidateVisa cv ON cm.CandidateID = cv.CandidateID
+                    dbo.CandidateVisa cv WITH (NOLOCK) ON cm.CandidateID = cv.CandidateID
                 LEFT JOIN
-                    dbo.VisaMaster vm ON cv.VisaID = vm.VisaID
+                    dbo.VisaMaster vm WITH (NOLOCK) ON cv.VisaID = vm.VisaID
                 LEFT JOIN
-                    dbo.CandidateResume cr ON cm.CandidateID = cr.CandidateID
+                    dbo.CandidateResume cr WITH (NOLOCK) ON cm.CandidateID = cr.CandidateID
                 LEFT JOIN
-                    dbo.ResumeExperiences re ON cr.ResumeID = re.ResumeID
+                    dbo.ResumeExperiences re WITH (NOLOCK) ON cr.ResumeID = re.ResumeID
                 LEFT JOIN
-                    dbo.ExperienceDetail ed ON re.ExperiencesID = ed.ExperiencesID
+                    dbo.ExperienceDetail ed WITH (NOLOCK) ON re.ExperiencesID = ed.ExperiencesID
                 LEFT JOIN
-                    dbo.CandidateProfessionalExperienceDetails cped ON re.ExperiencesID = cped.ExperiencesID
+                    dbo.ExperienceJobTitle ejt WITH (NOLOCK) ON ed.ExperienceDetailID = ejt.ExperienceDetailID 
                 LEFT JOIN
-                    dbo.ExperienceJobTitle ejt ON ed.ExperienceDetailID = ejt.ExperienceDetailID 
+                    dbo.DisplayCandidateResume dcr WITH (NOLOCK) ON cm.CandidateID = dcr.CandidateID
                 LEFT JOIN
-                    dbo.DisplayCandidateResume dcr ON cm.CandidateID = dcr.CandidateID
+                    dbo.CandidateJobSearchPriority cjsp WITH (NOLOCK) ON cm.CandidateID = cjsp.CandidateID
                 LEFT JOIN
-                    dbo.CandidateJobSearchPriority cjsp ON cm.CandidateID = cjsp.CandidateID
-                LEFT JOIN
-                    dbo.JobSearchPriorityMaster jspm ON cjsp.JobSearchPriorityID = jspm.JobSearchPriorityID
+                    dbo.JobSearchPriorityMaster jspm WITH (NOLOCK) ON cjsp.JobSearchPriorityID = jspm.JobSearchPriorityID
                 LEFT JOIN 
-                    dbo.ResumeEducation red ON cr.ResumeID = red.ResumeID
+                    dbo.ResumeEducation red WITH (NOLOCK) ON cr.ResumeID = red.ResumeID
                 LEFT JOIN
-                    dbo.vw_CandidateSkills vcs ON cm.CandidateID = vcs.CandidateID
+                    dbo.vw_CandidateSkills vcs WITH (NOLOCK) ON cm.CandidateID = vcs.CandidateID
+                WHERE
+                    cm.ModifiedDate > Convert(datetime, '2019-01-01 00:00:00')
                 ORDER BY
                     cm.ModifiedDate DESC
         """
