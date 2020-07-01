@@ -9,7 +9,7 @@ import pandas as pd
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-class FetchALlCandidates:
+class FetchAllCandidates:
     def __init__(self):
         self.connection = pyodbc.connect(DRIVER=settings.DB_DRIVER,
                                          SERVER=settings.DB_SERVER,
@@ -19,7 +19,7 @@ class FetchALlCandidates:
 
     def fetch_all_candidates(self):
         query = """
-                SELECT TOP 25 
+                SELECT TOP 1000 
                     cm.CandidateID, 
                     cp.PortalName AS Source,
                     reverse(stuff(reverse(CONCAT(
@@ -109,5 +109,4 @@ class FetchALlCandidates:
         """
 
         df = pd.read_sql_query(query, self.connection)
-        print(df, '\n\nFetched ', len(df), 'candidates from the database.')
-        return
+        return df

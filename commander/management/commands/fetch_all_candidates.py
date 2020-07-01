@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from knight.db_scripts.fetch_all_candidates import FetchALlCandidates
+from knight.py_scripts.fetch_all_candidates import FetchAllCandidates
 from datetime import datetime
 
 
@@ -14,6 +14,6 @@ class Command(BaseCommand):
         pass
 
     def handle(self, *args, **options):
-        obj = FetchALlCandidates()
+        obj = FetchAllCandidates()
         obj.fetch_all_candidates()
         return
