@@ -84,6 +84,9 @@ class FetchNewRequirements:
         """.format(last_executed_time)
 
         df = pd.read_sql_query(query, self.connection)
+        if 'Unnamed: 0' in df:
+            df.drop(columns='Unnamed: 0', inplace=True)
+
         obj.last_execution_time = make_aware(datetime.now())
         obj.save()
 
