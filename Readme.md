@@ -196,3 +196,9 @@ https://uszipcode.readthedocs.io/index.html
 
 https://github.com/MacHu-GWU/uszipcode-project
 
+
+# ToDo: Multiple Celery Queue using kombu Exchange & Queue
+
+https://github.com/msthakkar121/plaid_rest_celery
+
+changes in base.py, celery.py, and tasks.py
