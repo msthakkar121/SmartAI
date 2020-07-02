@@ -201,4 +201,45 @@ https://github.com/MacHu-GWU/uszipcode-project
 
 https://github.com/msthakkar121/plaid_rest_celery
 
-changes in base.py, celery.py, and tasks.py
+Changes in 
+* base.py 
+    ```
+    # Celery configurations
+    CELERY_TASK_CREATE_MISSING_QUEUES = True
+    
+    # Don't use pickle as serializer, json is much safer
+    CELERY_TASK_SERIALIZER = "json"
+    CELERY_ACCEPT_CONTENT = ['application/json']
+    
+    # CELERY ROUTES (Register all the tasks present in the project and specify their respective queues)
+    CELERY_TASK_ROUTES = {
+        'appname.tasks.taskname': {'queue': 'queue1'},
+        'appname.tasks.taskname': {'queue': 'queue1'},
+        'appname.tasks.taskname': {'queue': 'queue2'},
+        'appname.tasks.taskname': {'queue': 'queue2'},
+    }  
+  ```
+* celery.py
+    ```
+    ...
+    from kombu import Exchange, Queue
+  
+    exchange1 = Exchange('queue1', type='direct')
+    exchange2 = Exchange('queue2', type='direct')
+    
+    app.conf.task_queues = (
+        Queue('queue1', exchange1, routing_key='queue1'),
+        Queue('queue2', exchange2, routing_key='queue2')
+    )
+    
+    app.conf.task_default_queue = 'queue1'
+    app.conf.task_default_exchange = 'queue1'
+    app.conf.task_default_routing_key = 'queue1'
+    ...
+  ```
+* tasks.py
+    ```
+    from appname.celery import app
+    
+    # change task decorators to @app.task 
+  ```
