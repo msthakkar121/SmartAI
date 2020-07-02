@@ -1,6 +1,5 @@
 from django.core.management.base import BaseCommand
 from knight.py_scripts.fetch_all_candidates import FetchAllCandidates
-from datetime import datetime
 
 
 # python manage.py fetch_all_candidates
