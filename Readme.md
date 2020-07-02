@@ -188,3 +188,11 @@ https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-s
 #### Run Celery Beat
 
 > celery -A smart_ai beat -l info
+
+
+# ToDo: USZIPCode
+
+https://uszipcode.readthedocs.io/index.html
+
+https://github.com/MacHu-GWU/uszipcode-project
+
