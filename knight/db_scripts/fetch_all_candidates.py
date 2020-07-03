@@ -110,5 +110,5 @@ class FetchAllCandidates:
 
         df = pd.read_sql_query(query, self.connection)
         if 'Unnamed: 0' in df:
-            df.drop(columns='Unnamed: 0', inplace=True)
+            df.drop(labels=['Unnamed: 0'], axis=1, inplace=True)
         return df
