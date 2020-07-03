@@ -15,7 +15,7 @@ class FetchAllCandidates:
 
     def fetch_all_candidates(self):
         # Create the directory to save the data
-        data_path = BASE_DIR + '/ration/data/state_wise'
+        data_path = BASE_DIR + '/ration/data/candidates/state_wise'
         try:
             os.makedirs(data_path, exist_ok=True)
         except OSError:
