@@ -1,54 +1,56 @@
-AK_neighbours = ['WA']
-AL_neighbours = ['TN', 'GA', 'FL', 'MS']
-AR_neighbours = ['MO', 'TN', 'MS', 'LA', 'TX', 'OK']
-AZ_neighbours = ['UT', 'CO', 'NM', 'CA', 'NV']
-CA_neighbours = ['OR', 'NV', 'AZ', 'HI']
-CO_neighbours = ['WY', 'NE', 'KS', 'OK', 'NM', 'AZ', 'UT']
-CT_neighbours = ['MA', 'RI', 'NY']
-DC_neighbours = ['MD', 'VA']
-DE_neighbours = ['PA', 'NJ', 'MD']
-FL_neighbours = ['GA', 'AL']
-GA_neighbours = ['NC', 'SC', 'FL', 'AL', 'TN']
-GU_neighbours = []
-HI_neighbours = ['CA']
-IA_neighbours = ['MN', 'WI', 'IL', 'MO', 'NE', 'SD']
-ID_neighbours = ['MT', 'WY', 'UT', 'NV', 'OR', 'WA']
-IL_neighbours = ['WI', 'IN', 'KY', 'MO', 'IA']
-IN_neighbours = ['MI', 'OH', 'KY', 'IL']
-KS_neighbours = ['NE', 'MO', 'OK', 'CO']
-KY_neighbours = ['OH', 'WV', 'VA', 'TN', 'MO', 'IL', 'IN']
-LA_neighbours = ['AR', 'MS', 'TX']
-MA_neighbours = ['NH', 'RI', 'CT', 'NY', 'VT']
-MD_neighbours = ['PA', 'DE', 'DC', 'VA', 'WV']
-ME_neighbours = ['NH']
-MI_neighbours = ['OH', 'IN', 'WI']
-MN_neighbours = ['WI', 'IA', 'SD', 'ND']
-MO_neighbours = ['IA', 'IL', 'KY', 'TN', 'AR', 'OK', 'KS', 'NE']
-MS_neighbours = ['TN', 'AL', 'LA', 'AR']
-MT_neighbours = ['ND', 'SD', 'WY', 'ID']
-NC_neighbours = ['VA', 'SC', 'GA', 'TN']
-ND_neighbours = ['MN', 'SD', 'MT']
-NE_neighbours = ['SD', 'IA', 'MO', 'KS', 'CO', 'WY']
-NH_neighbours = ['ME', 'MA', 'VT']
-NJ_neighbours = ['NY', 'DE', 'PA']
-NM_neighbours = ['CO', 'OK', 'TX', 'AZ', 'UT']
-NV_neighbours = ['ID', 'UT', 'AZ', 'CA', 'OR']
-NY_neighbours = ['VT', 'MA', 'CT', 'NJ', 'PA']
-OH_neighbours = ['PA', 'WV', 'KY', 'IN', 'MI']
-OK_neighbours = ['KS', 'MO', 'AR', 'TX', 'NM', 'CO']
-OR_neighbours = ['WA', 'ID', 'NV', 'CA']
-PA_neighbours = ['NY', 'NJ', 'DE', 'MD', 'WV', 'OH']
-PR_neighbours = ['VI']
-RI_neighbours = ['MA', 'CT']
-SC_neighbours = ['NC', 'GA']
-SD_neighbours = ['ND', 'MN', 'IA', 'NE', 'WY', 'MT']
-TN_neighbours = ['KY', 'VA', 'NC', 'GA', 'AL', 'MS', 'AR', 'MO']
-TX_neighbours = ['OK', 'AR', 'LA', 'NM']
-UT_neighbours = ['ID', 'WY', 'CO', 'NM', 'AZ', 'NV']
-VA_neighbours = ['MD', 'DC', 'NC', 'TN', 'KY', 'WV']
-VI_neighbours = ['PR']
-VT_neighbours = ['NH', 'MA', 'NY']
-WA_neighbours = ['AK', 'ID', 'OR']
-WI_neighbours = ['MI', 'IL', 'IA', 'MN']
-WV_neighbours = ['PA', 'MD', 'VA', 'KY', 'OH']
-WY_neighbours = ['MT', 'SD', 'NE', 'CO', 'UT', 'ID']
+neighbours_of = {
+    'AK': ['WA'],
+    'AL': ['TN', 'GA', 'FL', 'MS'],
+    'AR': ['MO', 'TN', 'MS', 'LA', 'TX', 'OK'],
+    'AZ': ['UT', 'CO', 'NM', 'CA', 'NV'],
+    'CA': ['OR', 'NV', 'AZ', 'HI'],
+    'CO': ['WY', 'NE', 'KS', 'OK', 'NM', 'AZ', 'UT'],
+    'CT': ['MA', 'RI', 'NY'],
+    'DC': ['MD', 'VA'],
+    'DE': ['PA', 'NJ', 'MD'],
+    'FL': ['GA', 'AL'],
+    'GA': ['NC', 'SC', 'FL', 'AL', 'TN'],
+    'GU': [],
+    'HI': ['CA'],
+    'IA': ['MN', 'WI', 'IL', 'MO', 'NE', 'SD'],
+    'ID': ['MT', 'WY', 'UT', 'NV', 'OR', 'WA'],
+    'IL': ['WI', 'IN', 'KY', 'MO', 'IA'],
+    'IN': ['MI', 'OH', 'KY', 'IL'],
+    'KS': ['NE', 'MO', 'OK', 'CO'],
+    'KY': ['OH', 'WV', 'VA', 'TN', 'MO', 'IL', 'IN'],
+    'LA': ['AR', 'MS', 'TX'],
+    'MA': ['NH', 'RI', 'CT', 'NY', 'VT'],
+    'MD': ['PA', 'DE', 'DC', 'VA', 'WV'],
+    'ME': ['NH'],
+    'MI': ['OH', 'IN', 'WI'],
+    'MN': ['WI', 'IA', 'SD', 'ND'],
+    'MO': ['IA', 'IL', 'KY', 'TN', 'AR', 'OK', 'KS', 'NE'],
+    'MS': ['TN', 'AL', 'LA', 'AR'],
+    'MT': ['ND', 'SD', 'WY', 'ID'],
+    'NC': ['VA', 'SC', 'GA', 'TN'],
+    'ND': ['MN', 'SD', 'MT'],
+    'NE': ['SD', 'IA', 'MO', 'KS', 'CO', 'WY'],
+    'NH': ['ME', 'MA', 'VT'],
+    'NJ': ['NY', 'DE', 'PA'],
+    'NM': ['CO', 'OK', 'TX', 'AZ', 'UT'],
+    'NV': ['ID', 'UT', 'AZ', 'CA', 'OR'],
+    'NY': ['VT', 'MA', 'CT', 'NJ', 'PA'],
+    'OH': ['PA', 'WV', 'KY', 'IN', 'MI'],
+    'OK': ['KS', 'MO', 'AR', 'TX', 'NM', 'CO'],
+    'OR': ['WA', 'ID', 'NV', 'CA'],
+    'PA': ['NY', 'NJ', 'DE', 'MD', 'WV', 'OH'],
+    'PR': ['VI'],
+    'RI': ['MA', 'CT'],
+    'SC': ['NC', 'GA'],
+    'SD': ['ND', 'MN', 'IA', 'NE', 'WY', 'MT'],
+    'TN': ['KY', 'VA', 'NC', 'GA', 'AL', 'MS', 'AR', 'MO'],
+    'TX': ['OK', 'AR', 'LA', 'NM'],
+    'UT': ['ID', 'WY', 'CO', 'NM', 'AZ', 'NV'],
+    'VA': ['MD', 'DC', 'NC', 'TN', 'KY', 'WV'],
+    'VI': ['PR'],
+    'VT': ['NH', 'MA', 'NY'],
+    'WA': ['AK', 'ID', 'OR'],
+    'WI': ['MI', 'IL', 'IA', 'MN'],
+    'WV': ['PA', 'MD', 'VA', 'KY', 'OH'],
+    'WY': ['MT', 'SD', 'NE', 'CO', 'UT', 'ID']
+}
