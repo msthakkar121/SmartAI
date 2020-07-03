@@ -28,11 +28,19 @@ class FetchNewOrModifiedCandidates:
             for i in df.index:
                 df['State'][i] = search.by_zipcode(df['ZIPCode'][i]).state
 
+            # Remove Invalid States
+            df = df[df.State.notnull()]
+
             for state in df.State.unique():
                 state_df = pd.read_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv')
                 new_candidates_for_state = df[df['State'] == state]
+                new_candidates_for_state.reset_index(drop=True, inplace=True)
 
-                # TODO
+                for i, candidate in new_candidates_for_state.iterrows():
+                    if candidate['CandidateID'] in state_df.CandidateID.values:
+                        state_df.drop(state_df.loc[state_df['CandidateID'] == candidate['CandidateID']].index,
+                                      inplace=True)
+                    state_df = state_df.append(new_candidates_for_state.loc[i], ignore_index=True)
 
                 state_df.to_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv')
         return
