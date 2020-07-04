@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand
-from knight.db_scripts.fetch_new_requirements import FetchNewRequirements
+from knight.py_scripts.fetch_new_requirements import FetchNewRequirements
 from datetime import datetime
 
 
