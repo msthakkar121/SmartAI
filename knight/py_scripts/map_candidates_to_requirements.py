@@ -3,6 +3,7 @@ import pandas as pd
 from uszipcode import Zipcode, SearchEngine
 
 from knight.neighbours import neighbours_of
+from knight.py_scripts.score_candidates import ScoreCandidates
 
 
 class MapCandidatesToRequirements:
@@ -40,4 +41,6 @@ class MapCandidatesToRequirements:
                 print(len(my_candidates), ' candidates in 30 miles of the requirement.\n')
                 all_candidates_in_radius = pd.concat([all_candidates_in_radius, my_candidates])
             print('\n%d Total candidates for the requirement.\n\n' % len(all_candidates_in_radius))
+            scoring = ScoreCandidates()
+            scoring.score_candidates(requirements.loc[i], all_candidates_in_radius)
         pass
