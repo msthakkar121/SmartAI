@@ -4,6 +4,7 @@ from datetime import datetime
 from django.utils.timezone import make_aware
 
 from knight.db_scripts.fetch_new_requirements import FetchNewRequirements as FNR
+from knight.py_scripts.map_candidates_to_requirements import MapCandidatesToRequirements
 from ration.models import TaskExecutionTimings
 
 # Get base directory - 'SmartAI'
@@ -28,5 +29,8 @@ class FetchNewRequirements:
 
         print(df)
         print('\n\nFetched ', len(df), ' new requirements from ', last_executed_time, ' to ', now)
+
+        candidate_mapper = MapCandidatesToRequirements()
+        candidate_mapper.map_candidates_to_requirements(df)
 
         pass
