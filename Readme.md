@@ -190,11 +190,25 @@ https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-s
 > celery -A smart_ai beat -l info
 
 
-# ToDo: USZIPCode
+# ToDo: Candidate Scoring
 
-https://uszipcode.readthedocs.io/index.html
+https://towardsdatascience.com/tf-idf-for-document-ranking-from-scratch-in-python-on-real-world-dataset-796d339a4089
 
-https://github.com/MacHu-GWU/uszipcode-project
+* Convert to lower case & remove punctuations.
+* Eliminate stop words (common words that add no meaning) using nltk.
+* Apply stemming to the data to convert words to its root form. Like `swimming` to `swim`. Use porter-stemmer library.
+* Apply lemmatization to the data. It is same as stemming but makes sure that the root word is a dictionary word.
+
+```
+convert_lower_case(data)
+remove_punctuation(data)
+remove_apostrophe(data)
+remove_single_characters(data)
+convert_numbers(data)
+remove_stop_words(data)
+stemming(data)
+remove_punctuation(data)
+```
 
 
 # ToDo: Multiple Celery Queue using kombu Exchange & Queue
