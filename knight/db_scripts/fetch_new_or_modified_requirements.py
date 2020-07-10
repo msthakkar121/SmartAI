@@ -1,12 +1,12 @@
 import pyodbc
 import pandas as pd
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from django.conf import settings
 from ration.models import TaskExecutionTimings
 
 
-class FetchNewRequirements:
+class FetchNewOrModifiedRequirements:
     def __init__(self):
         self.connection = pyodbc.connect(DRIVER=settings.DB_DRIVER,
                                          SERVER=settings.DB_SERVER,
@@ -14,11 +14,25 @@ class FetchNewRequirements:
                                          UID=settings.DB_USER,
                                          PWD=settings.DB_PASSWORD)
 
-    def fetch_new_requirements(self):
+    def fetch_new_or_modified_requirements(self):
         # Get last executed time for the task
         obj = TaskExecutionTimings.objects.get(task_name='GetRequirementDetails')
         last_executed_time = obj.last_execution_time.replace(tzinfo=None, microsecond=0)
         now = datetime.now().replace(tzinfo=None, microsecond=0)
+        start_modified_time = last_executed_time - timedelta(minutes=180)
+        end_modified_time = start_modified_time + (now - last_executed_time)
+
+        # CONDITIONS TO CHECK
+        #
+        # 1. CreatedDate should be after last execution time
+        #
+        # 2. JobStatus should be OPEN
+        #
+        # 3. ModifiedDate should be in the slot before 3 hours from last executed time
+        #    For example, if you check for requirements every 15 mins ,
+        #    and current check time is 3:15, the last execution time must be 3
+        #    So the Modified date should be between 12 (3 hours prior to last execution time)
+        #    and 12:15 (add the difference between current time & last execution time)
 
         query = """
                 SELECT  
@@ -72,9 +86,13 @@ class FetchNewRequirements:
                     dbo.VisaMaster vm WITH (NOLOCK) ON rv.VisaID = vm.VisaID
                 LEFT JOIN
                     dbo.RequirementSkill rs WITH (NOLOCK) ON rm.RequirementID = rs.RequirementID
+                LEFT JOIN
+                    dbo.RequirementStatusTxn rst WITH (NOLOCK) ON rs.RequirementID = rst.RequirementID
                 WHERE
-                    rm.CreatedDate > '{0}'
-        """.format(last_executed_time)
+                    (rm.CreatedDate > '{0}' OR rm.ModifiedDate BETWEEN '{1}' AND '{2}')
+                AND 
+                    rst.StatusID IN (1,6,10,11)
+                """.format(last_executed_time, start_modified_time, end_modified_time)
 
         df = pd.read_sql_query(query, self.connection)
         if 'Unnamed: 0' in df:
