@@ -1,8 +1,7 @@
 import pandas as pd
 
-from uszipcode import Zipcode, SearchEngine
+from uszipcode import SearchEngine
 
-from knight.neighbours import neighbours_of
 from knight.py_scripts.score_candidates import ScoreCandidates
 
 
@@ -21,25 +20,23 @@ class MapCandidatesToRequirements:
             all_candidates_in_radius = pd.DataFrame()
             for zipcode in zipcodes:
                 obj_zipcode = search.by_zipcode(zipcode)
+                in_30_miles = search.by_coordinates(obj_zipcode.lat, obj_zipcode.lng, radius=30, returns=50000)
 
-                my_candidates = pd.read_csv('Data/state_wise/' + obj_zipcode.state + '.csv')
-                if 'Unnamed: 0' in my_candidates:
-                    my_candidates.drop(labels=['Unnamed: 0'], axis=1, inplace=True)
-
-                for neighbour in neighbours_of[obj_zipcode.state]:
+                my_candidates = pd.DataFrame()
+                for neighbour in set([i.state for i in in_30_miles]):
                     df = pd.read_csv('Data/state_wise/' + neighbour + '.csv')
                     if 'Unnamed: 0' in df:
                         df.drop(labels=['Unnamed: 0'], axis=1, inplace=True)
                     my_candidates = pd.concat([my_candidates, df])
                 # print(zipcode, ': lat ', obj_zipcode.lat, ', lon ', obj_zipcode.lng)
                 print(len(my_candidates), ' candidates')
-                in_30_miles = search.by_coordinates(obj_zipcode.lat, obj_zipcode.lng, radius=30, returns=50000)
+
                 for index, zipc in enumerate(in_30_miles):
                     in_30_miles[index] = zipc.zipcode
                 # print('ZipCodes in 30 miles: ', len(in_30_miles))
                 my_candidates = my_candidates[my_candidates.ZIPCode.isin(in_30_miles)]
                 print(len(my_candidates), ' candidates in 30 miles of the requirement.\n')
-                all_candidates_in_radius = pd.concat([all_candidates_in_radius, my_candidates])
+                all_candidates_in_radius = pd.concat([all_candidates_in_radius, my_candidates]).drop_duplicates().reset_index(drop=True)
             print('\n%d Total candidates for the requirement.\n\n' % len(all_candidates_in_radius))
             scoring = ScoreCandidates()
             scoring.score_candidates(requirements.loc[i], all_candidates_in_radius)
