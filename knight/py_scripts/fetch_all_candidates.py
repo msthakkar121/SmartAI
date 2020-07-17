@@ -33,7 +33,11 @@ class FetchAllCandidates:
 
         # Divide candidates based on location
         search = SearchEngine(simple_zipcode=True)
+
+        # Add State column in the DataFrame
         df['State'] = ''
+
+        # Set state value for each candidate
         for i in df.index:
             df['State'][i] = search.by_zipcode(df['ZIPCode'][i]).state
 
