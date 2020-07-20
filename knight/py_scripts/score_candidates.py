@@ -21,14 +21,16 @@ class ScoreCandidates:
 
         # Remove certain characters
         chars = ['\n', '\t', '. ', ', ', ',', ': ', ':', '? ', '?']
-        for c in chars:
-            cleantext = cleantext.replace(c, ' ')
+        for char in chars:
+            cleantext = cleantext.replace(char, ' ')
+
+        cleantext = cleantext.replace('&amp;', 'and')
 
         # Strip multiple whitspaces to a single one
         cleantext = re.sub(' +', ' ', cleantext).strip()
         return cleantext
 
-    def score_candidates(self, requirement, candidates):
+    def get_requirement_skills(self, job_desc):
         # Get SourcePros Skills
         skills = pd.read_csv(BASE_DIR + '/ration/data/skills.csv')
 
@@ -43,9 +45,45 @@ class ScoreCandidates:
         if 'Unnamed: 0' in linkedin_skills:
             linkedin_skills.drop(labels=['Unnamed: 0'], axis=1, inplace=True)
 
-        requirement['RequirementJobDescription'].loc[0] = self.cleanhtml(requirement['RequirementJobDescription'].loc[0])
+        skills = skills['SkillName'].values.tolist()
+        linkedin_skills = linkedin_skills['SkillName'].values.tolist()
+
+        re_skills = []
+
+        for skill in skills:
+            skill = str(skill).lower()
+            if re.search(r'\b' + re.escape(skill) + r'\b', job_desc):
+                re_skills.append(skill)
+            if re.search(r'\b' + re.escape(skill) + r'\b', job_desc):
+                re_skills.append(skill)
+
+        for skill in linkedin_skills:
+            skill = str(skill).lower()
+
+            if re.search(r'\b' + re.escape(skill) + r'\b', job_desc):
+                re_skills.append(skill)
+
+            if re.search(r'\b' + re.escape(skill) + r'\b', job_desc):
+                re_skills.append(skill)
+
+        re_skills = list(dict.fromkeys(re_skills))
+
+        return re_skills
+
+    def match_candidate_skills(self, re_skills, candidates):
+        return candidates
+
+    def score_candidates(self, requirement, candidates):
+
+        requirement['RequirementJobDescription'].loc[0] = self.cleanhtml(
+            requirement['RequirementJobDescription'].loc[0])
         requirement['ActualRequirement'].loc[0] = self.cleanhtml(requirement['ActualRequirement'].loc[0])
         requirement['JobTitle'].loc[0] = self.cleanhtml(requirement['JobTitle'].loc[0])
+
+        re_skills = self.get_requirement_skills(
+            requirement['RequirementJobDescription'].loc[0] + ' ' + requirement['JobTitle'].loc[0])
+
+        candidates = self.match_candidate_skills(re_skills, candidates)
 
         print('Scoring candidates is work in progress...!!!')
         pass
