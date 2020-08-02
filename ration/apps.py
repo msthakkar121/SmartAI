@@ -1,3 +1,5 @@
+__author__ = "Mohit Thakkar"
+
 from django.apps import AppConfig
 from django.db.models.signals import post_migrate
 
