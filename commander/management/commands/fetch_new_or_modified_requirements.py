@@ -1,3 +1,5 @@
+__author__ = "Mohit Thakkar"
+
 from django.core.management.base import BaseCommand
 from knight.py_scripts.fetch_new_or_modified_requirements import FetchNewOrModifiedRequirements
 from datetime import datetime

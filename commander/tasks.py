@@ -1,3 +1,5 @@
+__author__ = "Mohit Thakkar"
+
 from django.core import management
 
 from celery.schedules import crontab
