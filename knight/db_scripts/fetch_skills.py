@@ -1,3 +1,5 @@
+__author__ = "Mohit Thakkar"
+
 import pyodbc
 import pandas as pd
 

@@ -1,3 +1,5 @@
+__author__ = "Mohit Thakkar"
+
 import os
 
 import pandas as pd

@@ -1,3 +1,5 @@
+__author__ = "Mohit Thakkar"
+
 neighbours_of = {
     'AK': ['WA'],
     'AL': ['TN', 'GA', 'FL', 'MS'],
