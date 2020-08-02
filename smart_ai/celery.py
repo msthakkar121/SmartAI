@@ -1,4 +1,7 @@
 from __future__ import absolute_import
+
+__author__ = "Mohit Thakkar"
+
 import os
 from celery import Celery
 from django.conf import settings
