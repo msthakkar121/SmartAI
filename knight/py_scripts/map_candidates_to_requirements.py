@@ -30,7 +30,7 @@ class MapCandidatesToRequirements:
 
                 my_candidates = pd.DataFrame()
                 for neighbour in set([i.state for i in in_30_miles]):
-                    df = pd.read_csv(BASE_DIR + '/ration/data/state_wise/' + neighbour + '.csv')
+                    df = pd.read_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + neighbour + '.csv')
                     if 'Unnamed: 0' in df:
                         df.drop(labels=['Unnamed: 0'], axis=1, inplace=True)
                     my_candidates = pd.concat([my_candidates, df])
