@@ -75,19 +75,19 @@ class ScoreCandidates:
     def match_candidate_skills(self, re_skills, candidates):
         # Pick relevant features from candidate data
         candidates = candidates[
-            ['CandidateID', 'CandidateName', 'ResumeContent', 'CandidateSkills', 'ZIPCode', 'State']]
-        candidates['CandidateSkills'].fillna(' ', inplace=True)
+            ['candidateid', 'candidatename', 'resumecontent', 'candidateskills', 'zipcode', 'State']]
+        candidates['candidateskills'].fillna(' ', inplace=True)
 
         # This feature is for candidate score in regards to the requirement we are processing
         candidates['PercentageScore'] = ''
 
         for i in candidates.index:
             # Clean candidates data
-            candidates['ResumeContent'].loc[i] = self.cleanhtml(candidates['ResumeContent'].loc[i])
-            candidates['CandidateSkills'].loc[i] = self.cleanhtml(candidates['CandidateSkills'].loc[i])
+            candidates['resumecontent'].loc[i] = self.cleanhtml(candidates['resumecontent'].loc[i])
+            candidates['candidateskills'].loc[i] = self.cleanhtml(candidates['candidateskills'].loc[i])
             candidates['PercentageScore'].loc[i] = self.get_percentage_score(re_skills,
-                                                                             candidates['ResumeContent'].loc[i] + ' ' +
-                                                                             candidates['CandidateSkills'].loc[i])
+                                                                             candidates['resumecontent'].loc[i] + ' ' +
+                                                                             candidates['candidateskills'].loc[i])
 
         return candidates
 
@@ -118,6 +118,7 @@ class ScoreCandidates:
         # Get a list of candidates suitable or this job along with their score,
         # which indicates their relevance to the job
         candidates = self.match_candidate_skills(re_skills, candidates)
+        candidates.sort_values(by='PercentageScore', ascending=False, ignore_index=True, inplace=True)
 
         print('Scoring candidates is work in progress...!!!')
         pass

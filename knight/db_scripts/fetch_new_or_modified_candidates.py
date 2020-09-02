@@ -31,8 +31,8 @@ class FetchNewOrModifiedCandidates:
 
         query = """
                         SELECT TOP 1000 
-                            cm.CandidateID, 
-                            cp.PortalName AS Source,
+                            cm.CandidateID as candidateid, 
+                            cp.PortalName AS source,
                             reverse(stuff(reverse(CONCAT(
                                 CASE
                                 WHEN cm.Prefix IS NULL
@@ -53,20 +53,20 @@ class FetchNewOrModifiedCandidates:
                                 WHEN cm.LastName IS NULL
                                     THEN ''
                                     ELSE cm.LastName + ' '
-                                END)), 1, 1, '')) as CandidateName,
-                            cm.Email,
-                            cm.VerifiedByEmail AS isEmailVerified,
-                            cm.Mobile,
-                            cm.Birthdate,
-                            ed.TotalYears AS TotalExperience,
-                            ed.USExperience,
-                            cr.ResumeContent,
-                            jspm.JobSearchPriorityText AS JobSearchStatus,
-                            red.DegreeName AS HighestDegree,
-                            red.PassingYear,
-                            red.IsGraduate,	
-                            vcs.CandidateSkills,
-                            zm.ZIPCode,
+                                END)), 1, 1, '')) as candidatename,
+                            cm.Email as email,
+                            cm.VerifiedByEmail AS isemailverified,
+                            cm.Mobile as mobile,
+                            cm.Birthdate as birthdate,
+                            ed.TotalYears AS totalexperience,
+                            ed.USExperience as usexperience,
+                            cr.ResumeContent as resumecontent,
+                            jspm.JobSearchPriorityText AS jobsearchstatus,
+                            red.DegreeName AS highestdegree,
+                            red.PassingYear as passingyear,
+                            red.IsGraduate as isgraduate,	
+                            vcs.CandidateSkills as candidateskills,
+                            zm.ZIPCode as zipcode,
                             CASE
                                 WHEN cm.Relocation IS NULL
                                     THEN 0
@@ -76,11 +76,11 @@ class FetchNewOrModifiedCandidates:
                                 WHEN cm.SSN IS NOT NULL
                                     THEN 1
                                     ELSE 0
-                            END AS isSSNAvailable,
-                            vm.VisaName AS VisaStatus,
-                            cv.VisaExpiryDate,
-                            cm.CreatedDate,
-                            cm.ModifiedDate AS UpdatedDate
+                            END AS isssnavailable,
+                            vm.VisaName AS visastatus,
+                            cv.VisaExpiryDate as visaexpirydate,
+                            cm.CreatedDate as createddate,
+                            cm.ModifiedDate AS updateddate
                         FROM 
                             dbo.CandidateMaster cm WITH (NOLOCK)
                         LEFT JOIN

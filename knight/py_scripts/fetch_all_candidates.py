@@ -41,7 +41,7 @@ class FetchAllCandidates:
 
         # Set state value for each candidate
         for i in df.index:
-            df['State'][i] = search.by_zipcode(df['ZIPCode'][i]).state
+            df['State'][i] = search.by_zipcode(df['zipcode'][i]).state
 
         # Dictionary of dataframes, one for each state
         dict_states_dframes = {}
