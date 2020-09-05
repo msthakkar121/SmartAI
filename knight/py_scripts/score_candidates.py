@@ -54,18 +54,18 @@ class ScoreCandidates:
 
         for skill in skills:
             skill = str(skill).lower()
-            if re.search(r'\b' + re.escape(skill) + r'\b', job_desc):
+            if re.search(r'\b' + re.escape(skill) + r'\b', str(job_desc)):
                 re_skills.append(skill)
-            if re.search(r'\b' + re.escape(skill) + r'\b', job_desc):
+            if re.search(r'\b' + re.escape(skill) + r'\b', str(job_desc)):
                 re_skills.append(skill)
 
         for skill in linkedin_skills:
             skill = str(skill).lower()
 
-            if re.search(r'\b' + re.escape(skill) + r'\b', job_desc):
+            if re.search(r'\b' + re.escape(skill) + r'\b', str(job_desc)):
                 re_skills.append(skill)
 
-            if re.search(r'\b' + re.escape(skill) + r'\b', job_desc):
+            if re.search(r'\b' + re.escape(skill) + r'\b', str(job_desc)):
                 re_skills.append(skill)
 
         re_skills = list(dict.fromkeys(re_skills))
@@ -98,7 +98,7 @@ class ScoreCandidates:
 
         for skill in skills:
             skill = str(skill).lower()
-            if re.search(r'\b' + re.escape(skill) + r'\b', resume_data):
+            if re.search(r'\b' + re.escape(skill) + r'\b', str(resume_data)):
                 matching_skills_count = matching_skills_count + 1
 
         percentage_score = (matching_skills_count * 100) / total_skills_count
