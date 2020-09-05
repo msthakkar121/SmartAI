@@ -120,7 +120,7 @@ class ScoreCandidates:
         candidates = self.match_candidate_skills(re_skills, candidates)
         candidates.sort_values(by='PercentageScore', ascending=False, ignore_index=True, inplace=True)
 
-        candidates.to_csv(requirement['RequirementID'] + '_candidates.csv')
+        candidates.to_csv(str(requirement['RequirementID']) + '_candidates.csv')
 
         print(len(candidates), ' candidates shortlisted...!!!')
         pass
