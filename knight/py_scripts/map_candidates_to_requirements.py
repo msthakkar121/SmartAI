@@ -32,7 +32,7 @@ class MapCandidatesToRequirements:
         search = SearchEngine(simple_zipcode=True)
         for i in requirements.index:
             print('Requirement %s \n' % requirements['RequirementID'][i])
-            zipcodes = requirements['RequirementZIPCode'][i]
+            zipcodes = str(requirements['RequirementZIPCode'][i])
             zipcodes = zipcodes.replace(" ", "")
             zipcodes = zipcodes.split(',')
 
