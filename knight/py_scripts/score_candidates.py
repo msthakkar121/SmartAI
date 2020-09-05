@@ -106,14 +106,14 @@ class ScoreCandidates:
 
     def score_candidates(self, requirement, candidates):
         # Clean job data
-        requirement['RequirementJobDescription'].loc[0] = self.cleanhtml(
-            requirement['RequirementJobDescription'].loc[0])
-        requirement['ActualRequirement'].loc[0] = self.cleanhtml(requirement['ActualRequirement'].loc[0])
-        requirement['JobTitle'].loc[0] = self.cleanhtml(requirement['JobTitle'].loc[0])
+        requirement['RequirementJobDescription'] = self.cleanhtml(
+            requirement['RequirementJobDescription'])
+        requirement['ActualRequirement'] = self.cleanhtml(requirement['ActualRequirement'])
+        requirement['JobTitle'] = self.cleanhtml(requirement['JobTitle'])
 
         # Get a list of skills from job data
         re_skills = self.get_requirement_skills(
-            requirement['RequirementJobDescription'].loc[0] + ' ' + requirement['JobTitle'].loc[0])
+            requirement['RequirementJobDescription'] + ' ' + requirement['JobTitle'])
 
         # Get a list of candidates suitable or this job along with their score,
         # which indicates their relevance to the job
