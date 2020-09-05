@@ -16,7 +16,7 @@ class ScoreCandidates:
     def cleanhtml(self, raw_html):
         # Remove HTML Tags
         cleanre = re.compile('<.*?>')
-        cleantext = re.sub(cleanre, ' ', raw_html)
+        cleantext = re.sub(cleanre, ' ', str(raw_html))
 
         # To lower
         cleantext = cleantext.lower()
@@ -29,7 +29,7 @@ class ScoreCandidates:
         cleantext = cleantext.replace('&amp;', 'and')
 
         # Strip multiple whitspaces to a single one
-        cleantext = re.sub(' +', ' ', cleantext).strip()
+        cleantext = re.sub(' +', ' ', str(cleantext)).strip()
         return cleantext
 
     def get_requirement_skills(self, job_desc):
@@ -120,5 +120,7 @@ class ScoreCandidates:
         candidates = self.match_candidate_skills(re_skills, candidates)
         candidates.sort_values(by='PercentageScore', ascending=False, ignore_index=True, inplace=True)
 
-        print('Scoring candidates is work in progress...!!!')
+        candidates.to_csv(requirement['RequirementID'] + '_candidates.csv')
+
+        print(len(candidates), ' candidates shortlisted...!!!')
         pass
