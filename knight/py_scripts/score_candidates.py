@@ -123,16 +123,16 @@ class ScoreCandidates:
         # Get candidates with score greater than 40%
         candidates_to_email = candidates[candidates['PercentageScore'] > 40]
 
-        # In case there are less than 100 candidates with score greater than 40%,
-        # then email top 100 candidates shortlisted regardless of their score
-        if len(candidates_to_email) < 100:
-            candidates_to_email = candidates.head(100)
+        # In case there are less than 50 candidates with score greater than 40%,
+        # then email top 50 candidates shortlisted regardless of their score
+        if len(candidates_to_email) < 50:
+            candidates_to_email = candidates.head(50)
 
-        # In case there are more than 250 candidates with score greater than 40%,
-        # then email top 250 candidates shortlisted based on their score
-        if len(candidates_to_email) > 250:
+        # In case there are more than 100 candidates with score greater than 40%,
+        # then email top 100 candidates shortlisted based on their score
+        if len(candidates_to_email) > 100:
             candidates_to_email.sort_values(by='PercentageScore', ascending=False, ignore_index=True, inplace=True)
-            candidates_to_email = candidates_to_email.head(250)
+            candidates_to_email = candidates_to_email.head(100)
 
         # Drop all everything except ids
         candidates_to_email = candidates_to_email[['candidateid']]
