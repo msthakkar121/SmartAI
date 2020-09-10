@@ -6,6 +6,8 @@ import re
 import pandas as pd
 
 # Get base directory - 'SmartAI'
+from knight.db_scripts.email_candidates import EmailCandidates
+
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
@@ -134,11 +136,16 @@ class ScoreCandidates:
             candidates_to_email.sort_values(by='PercentageScore', ascending=False, ignore_index=True, inplace=True)
             candidates_to_email = candidates_to_email.head(100)
 
-        # Drop all everything except ids
-        candidates_to_email = candidates_to_email[['candidateid']]
-
         # Store all candidates
         candidates.to_csv(str(requirement['RequirementID']) + '_candidates.csv')
+
+        # Generate comma separated values for candidates & scores
+        csv_candidate_ids = ",".join([str(score) for score in candidates_to_email['candidateid'].values])
+        csv_scores = ",".join([str(score) for score in candidates_to_email['PercentageScore'].values])
+
+        # Send email
+        obj = EmailCandidates()
+        obj.email_candidates(requirement['RequirementID'], csv_candidate_ids, csv_scores)
 
         print(len(candidates_to_email), ' candidates shortlisted...!!!')
         pass
