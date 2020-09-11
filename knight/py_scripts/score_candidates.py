@@ -2,12 +2,15 @@ __author__ = "Mohit Thakkar"
 
 import os
 import re
+from datetime import datetime
 
 import pandas as pd
 
-# Get base directory - 'SmartAI'
+from knight.db_scripts import logger
+
 from knight.db_scripts.email_candidates import EmailCandidates
 
+# Get base directory - 'SmartAI'
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
@@ -146,6 +149,9 @@ class ScoreCandidates:
         # Send email
         obj = EmailCandidates()
         obj.email_candidates(requirement['RequirementID'], csv_candidate_ids, csv_scores)
+
+        logger.log('(' + str(datetime.now()) + ') Shortlisted ' + str(
+            len(candidates_to_email)) + 'candidates for requirement ' + str(len(requirement['RequirementID'])) + '.')
 
         print(len(candidates_to_email), ' candidates shortlisted...!!!')
         pass

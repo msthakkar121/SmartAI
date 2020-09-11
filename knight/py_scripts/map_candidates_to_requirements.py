@@ -4,7 +4,9 @@ import os
 
 import pandas as pd
 from uszipcode import SearchEngine
+from datetime import datetime
 
+from knight.db_scripts import logger
 from knight.py_scripts.score_candidates import ScoreCandidates
 
 # Get base directory - 'SmartAI'
@@ -32,6 +34,8 @@ class MapCandidatesToRequirements:
         search = SearchEngine(simple_zipcode=True)
         for i in requirements.index:
             print('Requirement %s \n' % requirements['RequirementID'][i])
+            logger.log('(' + str(datetime.now()) + ') Processing requirement: ' + str(
+                len(requirements['RequirementID'][i])) + '.')
             zipcodes = str(requirements['RequirementZIPCode'][i])
             zipcodes = zipcodes.replace(" ", "")
             zipcodes = zipcodes.split(',')

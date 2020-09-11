@@ -2,9 +2,11 @@ __author__ = "Mohit Thakkar"
 
 import os
 import pandas as pd
+from datetime import datetime
 
 from uszipcode import SearchEngine
 
+from knight.db_scripts import logger
 from knight.db_scripts.fetch_new_or_modified_candidates import FetchNewOrModifiedCandidates as FNMC
 
 # Get base directory - 'SmartAI'
@@ -35,6 +37,7 @@ class FetchNewOrModifiedCandidates:
         obj = FNMC()
         df = obj.fetch_new_or_modified_candidates()
         print('\n\n', df.head(), '\n\nFetched ', len(df), 'candidates from the database.')
+        logger.log('(' + str(datetime.now()) + ') Fetched' + str(len(df)) + 'candidates from the database.')
 
         if len(df) > 0:
             # Add 'States' to candidates
