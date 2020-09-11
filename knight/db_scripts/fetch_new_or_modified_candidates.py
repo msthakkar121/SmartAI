@@ -129,7 +129,10 @@ class FetchNewOrModifiedCandidates:
             result = res.fetchall()
 
         result = np.array([np.array(r) for r in result])
-        df = pd.DataFrame(result, columns=column_names)
+        if result:
+            df = pd.DataFrame(result, columns=column_names)
+        else:
+            df = pd.DataFrame(columns=column_names)
 
         if 'Unnamed: 0' in df:
             df.drop(labels=['Unnamed: 0'], axis=1, inplace=True)
