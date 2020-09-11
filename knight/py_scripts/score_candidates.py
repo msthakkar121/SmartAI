@@ -142,6 +142,10 @@ class ScoreCandidates:
         # Store all candidates
         candidates.to_csv(str(requirement['RequirementID']) + '_candidates.csv')
 
+        # Normalize scores in the range of 80% to 100%
+        candidates_to_email['PercentageScore'] = [(float(i) * 20 / max(candidates_to_email['PercentageScore'])) + 80 for
+                                                  i in candidates_to_email['PercentageScore']]
+
         # Generate comma separated values for candidates & scores
         csv_candidate_ids = ",".join([str(score) for score in candidates_to_email['candidateid'].values])
         csv_scores = ",".join([str(score) for score in candidates_to_email['PercentageScore'].values])
