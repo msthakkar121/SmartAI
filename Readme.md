@@ -211,6 +211,27 @@ remove_punctuation(data)
 ```
 
 
+# Running celery as a service using NSSM on windows
+
+> Non Sucking Service Manager (NSSM) can be downloaded from http://nssm.cc/download
+
+> Add the exe file to the project directory besides manage.py
+
+> Open the cmd in the directory and execute the command: `nssm insatll service_name`
+
+> An interface should pop up for service creation. In the application tab, provide the 
+> `path` for the python executable location in your virtual environment, project directory 
+> as the `startup directory`, and celery commands as `arguments`.  
+
+> You can also specify the path for log file against output and error under I/O tab. 
+
+> Once the service is created, you can locate it under task manager in order to start/stop 
+> the service. You can also use NSSM commandline to do the same.  
+
+> More information on https://www.programmersought.com/article/4425103991/ 
+> and http://nssm.cc/usage 
+
+
 # ToDo: Multiple Celery Queue using kombu Exchange & Queue
 
 https://github.com/msthakkar121/plaid_rest_celery
