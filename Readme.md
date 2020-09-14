@@ -210,6 +210,8 @@ https://docs.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-s
 > More information on https://www.programmersought.com/article/4425103991/ 
 > and http://nssm.cc/usage 
 
+> NSSM Commands: http://nssm.cc/commands
+
 
 # ToDo: Multiple Celery Queue using kombu Exchange & Queue
 
