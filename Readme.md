@@ -217,7 +217,7 @@ remove_punctuation(data)
 
 > Add the exe file to the project directory besides manage.py
 
-> Open the cmd in the directory and execute the command: `nssm insatll service_name`
+> Open the cmd in the directory and execute the command: `nssm install service_name`
 
 > An interface should pop up for service creation. In the application tab, provide the 
 > `path` for the python executable location in your virtual environment, project directory 
