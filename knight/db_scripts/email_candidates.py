@@ -14,4 +14,4 @@ class EmailCandidates:
 
     def email_candidates(self, requirement_id, candidate_ids, scores):
         with self.connection.cursor() as cursor:
-            cursor.execute("{CALL usp_ML_I_ResumeMatch (?,?,?)}", (requirement_id, candidate_ids, scores))
+            cursor.execute("{CALL usp_ML_I_ResumeMatch2 (?,?,?)}", (requirement_id, candidate_ids, scores))
