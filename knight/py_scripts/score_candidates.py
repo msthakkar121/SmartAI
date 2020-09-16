@@ -123,6 +123,7 @@ class ScoreCandidates:
         # Get a list of candidates suitable or this job along with their score,
         # which indicates their relevance to the job
         candidates = self.match_candidate_skills(re_skills, candidates)
+        candidates.drop(candidates[candidates['PercentageScore'] == 0].index, inplace=True)
         candidates.sort_values(by='PercentageScore', ascending=False, ignore_index=True, inplace=True)
 
         # Get candidates with score greater than 40%
