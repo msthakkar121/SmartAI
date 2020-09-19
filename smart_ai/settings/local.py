@@ -2,6 +2,7 @@ __author__ = "Mohit Thakkar"
 
 from .base import *
 from .dbdetails import *
+from .emailconfig import *
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/

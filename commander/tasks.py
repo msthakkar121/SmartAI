@@ -1,6 +1,8 @@
 __author__ = "Mohit Thakkar"
 
+from django.conf import settings
 from django.core import management
+from django.core.mail import send_mail
 from datetime import datetime
 
 from celery.schedules import crontab
@@ -27,4 +29,5 @@ def task_test():
         # celery_logger.info("Test task printed time!")
     except Exception as e:
         logger.log('(' + str(datetime.now()) + ') ERROR: ' + str(e))
+        send_mail("ERROR in Task_Test", str(e), settings.EMAIL_HOST, settings.EMAIL_RECIPIENTS)
     return
