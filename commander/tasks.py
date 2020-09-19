@@ -28,6 +28,6 @@ def task_test():
         # management.call_command('fetch_all_candidates')
         # celery_logger.info("Test task printed time!")
     except Exception as e:
-        logger.log('(' + str(datetime.now()) + ') ERROR: ' + str(e))
-        send_mail("ERROR in Task_Test", str(e), settings.EMAIL_HOST, settings.EMAIL_RECIPIENTS)
+        logger.log('(' + str(datetime.now()) + ') ERROR: ' + str(e) + str(e.__traceback__))
+        send_mail("ERROR in Task_Test", str(e) + str(e.__traceback__), settings.EMAIL_HOST, settings.EMAIL_RECIPIENTS)
     return
