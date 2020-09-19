@@ -35,7 +35,7 @@ class MapCandidatesToRequirements:
         for i in requirements.index:
             print('Requirement %s \n' % requirements['RequirementID'][i])
             logger.log('(' + str(datetime.now()) + ') Processing requirement: ' + str(
-                len(requirements['RequirementID'][i])) + '.')
+                requirements['RequirementID'][i]) + '.')
             zipcodes = str(requirements['RequirementZIPCode'][i])
             zipcodes = zipcodes.replace(" ", "")
             zipcodes = zipcodes.split(',')
