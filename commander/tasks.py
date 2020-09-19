@@ -32,6 +32,7 @@ def task_test():
     except Exception:
         ex_type, ex, tb = sys.exc_info()
         e = str(traceback.format_exception(ex_type, ex, tb))
-        logger.log('(' + str(datetime.now()) + ') ERROR: ' + e)
+        print(e)
+        logger.log('(' + str(datetime.now()) + ') ERROR: ' + str(ex))
         send_mail("ERROR in Task_Test", e, settings.EMAIL_HOST, settings.EMAIL_RECIPIENTS)
     return
