@@ -1,5 +1,7 @@
 __author__ = "Mohit Thakkar"
 
+import sys, traceback
+
 from django.conf import settings
 from django.core import management
 from django.core.mail import send_mail
@@ -27,7 +29,9 @@ def task_test():
         print('Test task that runs every minute!!!')
         # management.call_command('fetch_all_candidates')
         # celery_logger.info("Test task printed time!")
-    except Exception as e:
-        logger.log('(' + str(datetime.now()) + ') ERROR: ' + str(e) + str(e.__traceback__))
-        send_mail("ERROR in Task_Test", str(e) + str(e.__traceback__), settings.EMAIL_HOST, settings.EMAIL_RECIPIENTS)
+    except Exception:
+        ex_type, ex, tb = sys.exc_info()
+        e = str(traceback.format_exception(ex_type, ex, tb))
+        logger.log('(' + str(datetime.now()) + ') ERROR: ' + e)
+        send_mail("ERROR in Task_Test", e, settings.EMAIL_HOST, settings.EMAIL_RECIPIENTS)
     return

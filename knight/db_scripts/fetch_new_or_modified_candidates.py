@@ -121,7 +121,7 @@ class FetchNewOrModifiedCandidates:
 
         column_names = ['candidateid', 'source', 'candidatename', 'email', 'isemailverified', 'mobile', 'birthdate',
                         'totalexperience', 'usexperience', 'resumecontent', 'jobsearchstatus', 'highestdegree',
-                        'passingyear', 'isgraduate', 'candidateskills', 'zipcode', 'willRelocate', 'isssnavailable',
+                        'passingyear', 'isgraduate', 'candidateskills', 'ZIPCode', 'willRelocate', 'isssnavailable',
                         'visastatus', 'visaexpirydate', 'createddate', 'updateddate']
 
         with self.connection.cursor() as cursor:
