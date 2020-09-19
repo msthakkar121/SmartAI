@@ -140,6 +140,8 @@ class ScoreCandidates:
             candidates_to_email.sort_values(by='PercentageScore', ascending=False, ignore_index=True, inplace=True)
             candidates_to_email = candidates_to_email.head(100)
 
+        number_of_candidates = len(candidates_to_email)
+
         # Store all candidates
         candidates.to_csv(str(requirement['RequirementID']) + '_candidates.csv')
 
@@ -156,7 +158,7 @@ class ScoreCandidates:
         obj.email_candidates(requirement['RequirementID'], csv_candidate_ids, csv_scores)
 
         logger.log('(' + str(datetime.now()) + ') Shortlisted ' + str(
-            len(candidates_to_email)) + 'candidates for requirement ' + str(len(requirement['RequirementID'])) + '.')
+            number_of_candidates) + 'candidates for requirement ' + str(len(requirement['RequirementID'])) + '.')
 
-        print(len(candidates_to_email), ' candidates shortlisted...!!!')
+        print(number_of_candidates, ' candidates shortlisted...!!!')
         pass
