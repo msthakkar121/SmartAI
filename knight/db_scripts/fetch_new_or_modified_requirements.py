@@ -109,7 +109,7 @@ class FetchNewOrModifiedRequirements:
             result = res.fetchall()
 
         result = np.array([np.array(r) for r in result])
-        if result:
+        if len(result) > 0:
             df = pd.DataFrame(result, columns=column_names)
         else:
             df = pd.DataFrame(columns=column_names)
