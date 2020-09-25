@@ -36,6 +36,8 @@ class FetchNewOrModifiedCandidates:
         # Get the data
         obj = FNMC()
         df = obj.fetch_new_or_modified_candidates()
+        obj.connection.close()
+
         print('\n\n', df.head(), '\n\nFetched ', len(df), 'candidates from the database.')
         logger.log('(' + str(datetime.now()) + ') Fetched' + str(len(df)) + 'candidates from the database.')
 

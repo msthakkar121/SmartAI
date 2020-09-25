@@ -12,3 +12,5 @@ def log(data):
                                 PWD=settings.DB_PASSWORD)
     with connection.cursor() as cursor:
         cursor.execute("Insert into ProcessLog (Data) VALUES (?)", ('[Artie 2.0] ' + str(data)))
+
+    connection.close()

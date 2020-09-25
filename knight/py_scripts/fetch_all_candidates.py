@@ -30,6 +30,7 @@ class FetchAllCandidates:
         # Get the data
         obj = FAC()
         df = obj.fetch_all_candidates()
+        obj.connection.close()
 
         print('\n\n', df.head(), '\n\nFetched ', len(df), 'candidates from the database.')
 

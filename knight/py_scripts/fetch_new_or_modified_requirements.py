@@ -25,6 +25,7 @@ class FetchNewOrModifiedRequirements:
 
         fnmr = FNMR()
         df = fnmr.fetch_new_or_modified_requirements()
+        fnmr.connection.close()
 
         obj.last_execution_time = make_aware(datetime.now())
         obj.save()
