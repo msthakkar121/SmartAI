@@ -1,6 +1,6 @@
 __author__ = "Mohit Thakkar"
 
-import sys, traceback
+import sys, traceback, gc
 
 from django.conf import settings
 from django.core import management
@@ -35,4 +35,6 @@ def task_test():
         print(e)
         logger.log('(' + str(datetime.now()) + ') ERROR: ' + str(ex))
         send_mail("ERROR in Task_Test", e, settings.EMAIL_HOST, settings.EMAIL_RECIPIENTS)
+    finally:
+        gc.collect()
     return
