@@ -32,6 +32,8 @@ class MapCandidatesToRequirements:
 
     def map_candidates_to_requirements(self, requirements):
         search = SearchEngine(simple_zipcode=True)
+        # Drop remote location jobs
+        requirements.drop(requirements[requirements['IsRemoteLocation'] == 1].index, inplace=True)
         for i in requirements.index:
             print('Requirement %s \n' % requirements['RequirementID'][i])
             logger.log('(' + str(datetime.now()) + ') Processing requirement: ' + str(
