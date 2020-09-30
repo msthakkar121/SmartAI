@@ -64,8 +64,8 @@ class FetchNewOrModifiedCandidates:
                     state_df = state_df.append(new_candidates_for_state.loc[i], ignore_index=True)
 
                 # Drop candidates older than 1.5 years
-                state_df['UpdatedDate'] = pd.to_datetime(state_df['UpdatedDate'])
-                state_df = state_df[state_df['UpdatedDate'] > (datetime.now() - relativedelta(months=18))]
+                state_df['updateddate'] = pd.to_datetime(state_df['updateddate'])
+                state_df = state_df[state_df['updateddate'] > (datetime.now() - relativedelta(months=18))]
 
                 state_df.drop_duplicates(inplace=True, ignore_index=True)
                 state_df.to_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv')
