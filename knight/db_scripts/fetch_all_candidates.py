@@ -126,6 +126,5 @@ class FetchAllCandidates:
         else:
             df = pd.DataFrame(columns=column_names)
 
-        if 'Unnamed: 0' in df:
-            df.drop(labels=['Unnamed: 0'], axis=1, inplace=True)
+        df = df[df.columns.drop(list(df.filter(regex='Unnamed:')))]
         return df

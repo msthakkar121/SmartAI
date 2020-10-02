@@ -52,8 +52,7 @@ class MapCandidatesToRequirements:
                 my_candidates = pd.DataFrame()
                 for neighbour in set([i.state for i in in_30_miles]):
                     df = pd.read_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + neighbour + '.csv', engine='python')
-                    if 'Unnamed: 0' in df:
-                        df.drop(labels=['Unnamed: 0'], axis=1, inplace=True)
+                    df = df[df.columns.drop(list(df.filter(regex='Unnamed:')))]
                     my_candidates = pd.concat([my_candidates, df])
                 # print(zipcode, ': lat ', obj_zipcode.lat, ', lon ', obj_zipcode.lng)
                 print(len(my_candidates), ' candidates')

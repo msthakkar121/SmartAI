@@ -41,16 +41,14 @@ class ScoreCandidates:
         # Get SourcePros Skills
         skills = pd.read_csv(BASE_DIR + '/ration/data/skills.csv')
 
-        if 'Unnamed: 0' in skills:
-            skills.drop(labels=['Unnamed: 0'], axis=1, inplace=True)
+        skills = skills[skills.columns.drop(list(skills.filter(regex='Unnamed:')))]
 
         skills['SkillName'] = skills['SkillName'].str.replace('"', '')
         skills['SkillName'] = skills['SkillName'].str.replace(' ', '')
 
         # Get LinkedIn Skills
         linkedin_skills = pd.read_csv(BASE_DIR + '/ration/data/linkedin_skills', header=0, names=['SkillName'])
-        if 'Unnamed: 0' in linkedin_skills:
-            linkedin_skills.drop(labels=['Unnamed: 0'], axis=1, inplace=True)
+        linkedin_skills = linkedin_skills[linkedin_skills.columns.drop(list(linkedin_skills.filter(regex='Unnamed:')))]
 
         skills = skills['SkillName'].values.tolist()
         linkedin_skills = linkedin_skills['SkillName'].values.tolist()
