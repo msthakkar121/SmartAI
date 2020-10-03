@@ -54,6 +54,7 @@ class FetchNewOrModifiedCandidates:
 
             for state in df.State.unique():
                 state_df = pd.read_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv', engine='python')
+                state_df = state_df[state_df.columns.drop(list(state_df.filter(regex='Unnamed:')))]
                 new_candidates_for_state = df[df['State'] == state]
                 new_candidates_for_state.reset_index(drop=True, inplace=True)
 
