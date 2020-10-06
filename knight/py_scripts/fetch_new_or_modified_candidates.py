@@ -37,6 +37,7 @@ class FetchNewOrModifiedCandidates:
         # Get the data
         obj = FNMC()
         df = obj.fetch_new_or_modified_candidates()
+        df['resumecontent'] = df['resumecontent'].to_string()
         obj.connection.close()
 
         print('\n\n', df.head(), '\n\nFetched ', len(df), 'candidates from the database.')
@@ -53,8 +54,10 @@ class FetchNewOrModifiedCandidates:
             df = df[df.State.notnull()]
 
             for state in df.State.unique():
-                state_df = pd.read_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv', engine='python')
+                state_df = pd.read_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv',
+                                       engine='python', encoding='utf-8')
                 state_df = state_df[state_df.columns.drop(list(state_df.filter(regex='Unnamed:')))]
+                state_df['resumecontent'] = state_df['resumecontent'].to_string()
                 new_candidates_for_state = df[df['State'] == state]
                 new_candidates_for_state.reset_index(drop=True, inplace=True)
 
@@ -69,5 +72,5 @@ class FetchNewOrModifiedCandidates:
                 state_df = state_df[state_df['updateddate'] > (datetime.now() - relativedelta(months=18))]
 
                 state_df.drop_duplicates(inplace=True, ignore_index=True)
-                state_df.to_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv')
+                state_df.to_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv', encoding='utf-8')
         return
