@@ -1,6 +1,7 @@
 __author__ = "Mohit Thakkar"
 
 import os
+import csv
 import pandas as pd
 from datetime import datetime
 
@@ -54,6 +55,8 @@ class FetchNewOrModifiedCandidates:
             df = df[df.State.notnull()]
 
             for state in df.State.unique():
+                file = open(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv', 'wt', encoding="utf-8")
+                candidates = csv.writer(file)
                 state_df = pd.read_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv',
                                        engine='python', encoding='utf-8')
                 state_df = state_df[state_df.columns.drop(list(state_df.filter(regex='Unnamed:')))]
@@ -71,6 +74,12 @@ class FetchNewOrModifiedCandidates:
                 state_df['updateddate'] = pd.to_datetime(state_df['updateddate'])
                 state_df = state_df[state_df['updateddate'] > (datetime.now() - relativedelta(months=18))]
 
+                # Drop duplicates
                 state_df.drop_duplicates(inplace=True, ignore_index=True)
-                state_df.to_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv', encoding='utf-8')
+
+                # Write new file and close the stream
+                candidates.writerow(state_df.columns.tolist())
+                candidates.writerows(state_df.values.tolist())
+                file.close()
+                # state_df.to_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv', encoding='utf-8')
         return
