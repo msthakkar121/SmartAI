@@ -1,7 +1,7 @@
 __author__ = "Mohit Thakkar"
 
 import os
-import csv
+# import csv
 import pandas as pd
 from datetime import datetime
 
@@ -56,7 +56,7 @@ class FetchNewOrModifiedCandidates:
 
             for state in df.State.unique():
                 state_df = pd.read_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv',
-                                       engine='python', encoding='utf-8')
+                                       engine='python', encoding='utf-8-sig')
                 state_df = state_df[state_df.columns.drop(list(state_df.filter(regex='Unnamed:')))]
                 state_df['resumecontent'] = state_df['resumecontent'].to_string()
                 new_candidates_for_state = df[df['State'] == state]
@@ -75,11 +75,11 @@ class FetchNewOrModifiedCandidates:
                 # Drop duplicates
                 state_df.drop_duplicates(inplace=True, ignore_index=True)
 
-                # Write new file and close the stream
-                file = open(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv', 'wt', encoding="utf-8")
-                candidates = csv.writer(file)
-                candidates.writerow(state_df.columns.tolist())
-                candidates.writerows(state_df.values.tolist())
-                file.close()
-                # state_df.to_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv', encoding='utf-8')
+                # # Write new file and close the stream
+                # file = open(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv', 'wt', encoding="utf-8")
+                # candidates = csv.writer(file)
+                # candidates.writerow(state_df.columns.tolist())
+                # candidates.writerows(state_df.values.tolist())
+                # file.close()
+                state_df.to_csv(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.csv', encoding='utf-8-sig')
         return
