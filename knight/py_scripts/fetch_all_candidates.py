@@ -50,7 +50,7 @@ class FetchAllCandidates:
             dict_states_dframes[state] = pd.DataFrame(columns=df.columns)
             dict_states_dframes[state] = df[df['State'] == state]
             try:
-                dict_states_dframes[state].to_csv(data_path + '/' + state + '.csv')
+                dict_states_dframes[state].to_pickle(data_path + '/' + state + '.pkl')
             except OSError as ose:
                 print('\nError saving data.\n', ose)
             except Exception as e:
