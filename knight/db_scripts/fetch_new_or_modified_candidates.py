@@ -134,7 +134,7 @@ class FetchNewOrModifiedCandidates:
         else:
             df = pd.DataFrame(columns=column_names)
 
-        df = df[df.columns.drop(list(df.filter(regex='Unnamed:')))]
+        df.columns.drop(list(df.filter(regex='Unnamed:')), inplace=True)
 
         obj.last_execution_time = make_aware(datetime.now())
         obj.save()

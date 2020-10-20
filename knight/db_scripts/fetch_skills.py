@@ -25,6 +25,6 @@ class FetchSkills:
         """
 
         df = pd.read_sql_query(query, self.connection)
-        df = df[df.columns.drop(list(df.filter(regex='Unnamed:')))]
+        df.columns.drop(list(df.filter(regex='Unnamed:')), inplace=True)
 
         return df

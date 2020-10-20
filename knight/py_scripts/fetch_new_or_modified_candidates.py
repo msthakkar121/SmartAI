@@ -56,7 +56,7 @@ class FetchNewOrModifiedCandidates:
 
             for state in df.State.unique():
                 state_df = pd.read_pickle(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.pkl')
-                state_df = state_df[state_df.columns.drop(list(state_df.filter(regex='Unnamed:')))]
+                state_df.columns.drop(list(state_df.filter(regex='Unnamed:')), inplace=True)
                 state_df['resumecontent'] = state_df['resumecontent'].to_string()
                 new_candidates_for_state = df[df['State'] == state]
                 new_candidates_for_state.reset_index(drop=True, inplace=True)
@@ -81,4 +81,6 @@ class FetchNewOrModifiedCandidates:
                 # candidates.writerows(state_df.values.tolist())
                 # file.close()
                 state_df.to_pickle(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.pkl')
+                del [[state_df]]
+        del [[df]]
         return

@@ -159,4 +159,5 @@ class ScoreCandidates:
             number_of_candidates) + 'candidates for requirement ' + str(len(requirement['RequirementID'])) + '.')
 
         print(number_of_candidates, ' candidates shortlisted...!!!')
+        del [[candidates, candidates_to_email]]
         pass

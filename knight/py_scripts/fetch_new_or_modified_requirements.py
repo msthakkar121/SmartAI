@@ -35,5 +35,5 @@ class FetchNewOrModifiedRequirements:
 
         candidate_mapper = MapCandidatesToRequirements()
         candidate_mapper.map_candidates_to_requirements(df)
-
+        del [[df]]
         pass
