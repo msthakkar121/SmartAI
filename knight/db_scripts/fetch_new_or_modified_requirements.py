@@ -114,6 +114,6 @@ class FetchNewOrModifiedRequirements:
         else:
             df = pd.DataFrame(columns=column_names)
 
-        df.columns.drop(list(df.filter(regex='Unnamed:')), inplace=True)
+        df.drop(columns=list(df.filter(regex='Unnamed:')), inplace=True)
 
         return df
