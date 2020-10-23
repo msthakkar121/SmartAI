@@ -1,5 +1,6 @@
 __author__ = "Mohit Thakkar"
 
+import gc
 import os
 import re
 from datetime import datetime
@@ -160,4 +161,5 @@ class ScoreCandidates:
 
         print(number_of_candidates, ' candidates shortlisted...!!!')
         del [[candidates, candidates_to_email]]
+        gc.collect()
         pass

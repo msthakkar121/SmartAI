@@ -1,5 +1,6 @@
 __author__ = "Mohit Thakkar"
 
+import gc
 import os
 # import csv
 import pandas as pd
@@ -82,5 +83,7 @@ class FetchNewOrModifiedCandidates:
                 # file.close()
                 state_df.to_pickle(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.pkl')
                 del [[state_df]]
+                gc.collect()
         del [[df]]
+        gc.collect()
         return

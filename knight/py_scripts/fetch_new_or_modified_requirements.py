@@ -1,5 +1,6 @@
 __author__ = "Mohit Thakkar"
 
+import gc
 import os
 import pandas as pd
 from datetime import datetime
@@ -36,4 +37,5 @@ class FetchNewOrModifiedRequirements:
         candidate_mapper = MapCandidatesToRequirements()
         candidate_mapper.map_candidates_to_requirements(df)
         del [[df]]
+        gc.collect()
         pass

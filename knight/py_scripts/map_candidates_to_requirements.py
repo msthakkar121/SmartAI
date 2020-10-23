@@ -1,5 +1,6 @@
 __author__ = "Mohit Thakkar"
 
+import gc
 import os
 
 import pandas as pd
@@ -55,6 +56,7 @@ class MapCandidatesToRequirements:
                     df.drop(columns=list(df.filter(regex='Unnamed:')), inplace=True)
                     my_candidates = pd.concat([my_candidates, df])
                     del [[df]]
+                    gc.collect()
                 # print(zipcode, ': lat ', obj_zipcode.lat, ', lon ', obj_zipcode.lng)
                 print(len(my_candidates), ' candidates')
 
@@ -66,10 +68,13 @@ class MapCandidatesToRequirements:
                 all_candidates_in_radius = pd.concat(
                     [all_candidates_in_radius, my_candidates]).drop_duplicates().reset_index(drop=True)
                 del [[my_candidates]]
+                gc.collect()
             print('\n%d Total candidates for the requirement.\n\n' % len(all_candidates_in_radius))
             if len(all_candidates_in_radius) > 0:
                 scoring = ScoreCandidates()
                 scoring.score_candidates(requirements.loc[i], all_candidates_in_radius)
             del [[all_candidates_in_radius]]
+            gc.collect()
         del [[requirements]]
+        gc.collect()
         pass
