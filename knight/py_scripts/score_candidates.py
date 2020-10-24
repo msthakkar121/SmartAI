@@ -87,11 +87,11 @@ class ScoreCandidates:
 
         for i in candidates.index:
             # Clean candidates data
-            candidates['resumecontent'].loc[i] = self.cleanhtml(candidates['resumecontent'].loc[i])
-            candidates['candidateskills'].loc[i] = self.cleanhtml(candidates['candidateskills'].loc[i])
-            candidates['PercentageScore'].loc[i] = self.get_percentage_score(re_skills,
-                                                                             candidates['resumecontent'].loc[i] + ' ' +
-                                                                             candidates['candidateskills'].loc[i])
+            candidates.loc[i, 'resumecontent'] = self.cleanhtml(candidates.loc[i, 'resumecontent'])
+            candidates.loc[i, 'candidateskills'] = self.cleanhtml(candidates.loc[i, 'candidateskills'])
+            candidates.loc[i, 'PercentageScore'] = self.get_percentage_score(re_skills,
+                                                                             candidates.loc[i, 'resumecontent'] + ' ' +
+                                                                             candidates.loc[i, 'candidateskills'])
 
         return candidates
 
