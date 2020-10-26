@@ -110,10 +110,10 @@ class ScoreCandidates:
 
     def score_candidates(self, requirement, candidates):
         # Clean job data
-        requirement['RequirementJobDescription'] = self.cleanhtml(
-            requirement['RequirementJobDescription'])
-        requirement['ActualRequirement'] = self.cleanhtml(requirement['ActualRequirement'])
-        requirement['JobTitle'] = self.cleanhtml(requirement['JobTitle'])
+        requirement._set_value('RequirementJobDescription', self.cleanhtml(
+            requirement.get('RequirementJobDescription')))
+        requirement._set_value('ActualRequirement', self.cleanhtml(requirement.get('ActualRequirement')))
+        requirement._set_value('JobTitle', self.cleanhtml(requirement.get('JobTitle')))
 
         # Get a list of skills from job data
         re_skills = self.get_requirement_skills(
