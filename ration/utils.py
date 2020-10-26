@@ -16,3 +16,8 @@ def insert_initial_data(sender, **kwargs):
     if created:
         obj.last_execution_time=make_aware(datetime.now())
         obj.save()
+
+    obj, created = TaskExecutionTimings.objects.get_or_create(task_name='ProcessRequirements')
+    if created:
+        obj.last_execution_time=make_aware(datetime.now())
+        obj.save()
