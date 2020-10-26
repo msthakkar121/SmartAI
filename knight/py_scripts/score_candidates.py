@@ -90,8 +90,8 @@ class ScoreCandidates:
             candidates.at[i, 'resumecontent'] = self.cleanhtml(candidates.loc[i, 'resumecontent'])
             candidates.at[i, 'candidateskills'] = self.cleanhtml(candidates.loc[i, 'candidateskills'])
             candidates.at[i, 'PercentageScore'] = self.get_percentage_score(re_skills,
-                                                                             candidates.loc[i, 'resumecontent'] + ' ' +
-                                                                             candidates.loc[i, 'candidateskills'])
+                                                                            candidates.loc[i, 'resumecontent'] + ' ' +
+                                                                            candidates.loc[i, 'candidateskills'])
 
         return candidates
 
