@@ -83,13 +83,13 @@ class ScoreCandidates:
         candidates['candidateskills'].fillna(' ', inplace=True)
 
         # This feature is for candidate score in regards to the requirement we are processing
-        candidates['PercentageScore'] = ''
+        candidates.insert(len(candidates.columns), 'PercentageScore', '')
 
         for i in candidates.index:
             # Clean candidates data
-            candidates.loc[i, 'resumecontent'] = self.cleanhtml(candidates.loc[i, 'resumecontent'])
-            candidates.loc[i, 'candidateskills'] = self.cleanhtml(candidates.loc[i, 'candidateskills'])
-            candidates.loc[i, 'PercentageScore'] = self.get_percentage_score(re_skills,
+            candidates.at[i, 'resumecontent'] = self.cleanhtml(candidates.loc[i, 'resumecontent'])
+            candidates.at[i, 'candidateskills'] = self.cleanhtml(candidates.loc[i, 'candidateskills'])
+            candidates.at[i, 'PercentageScore'] = self.get_percentage_score(re_skills,
                                                                              candidates.loc[i, 'resumecontent'] + ' ' +
                                                                              candidates.loc[i, 'candidateskills'])
 
