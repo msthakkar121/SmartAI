@@ -76,25 +76,6 @@ class ScoreCandidates:
 
         return re_skills
 
-    def match_candidate_skills(self, re_skills, candidates):
-        # Pick relevant features from candidate data
-        candidates = candidates[
-            ['candidateid', 'candidatename', 'resumecontent', 'candidateskills', 'zipcode', 'State']]
-        candidates['candidateskills'].fillna(' ', inplace=True)
-
-        # This feature is for candidate score in regards to the requirement we are processing
-        candidates.insert(len(candidates.columns), 'PercentageScore', '')
-
-        for i in candidates.index:
-            # Clean candidates data
-            candidates.at[i, 'resumecontent'] = self.cleanhtml(candidates.loc[i, 'resumecontent'])
-            candidates.at[i, 'candidateskills'] = self.cleanhtml(candidates.loc[i, 'candidateskills'])
-            candidates.at[i, 'PercentageScore'] = self.get_percentage_score(re_skills,
-                                                                            candidates.loc[i, 'resumecontent'] + ' ' +
-                                                                            candidates.loc[i, 'candidateskills'])
-
-        return candidates
-
     def get_percentage_score(self, skills, resume_data):
         percentage_score = 0
         total_skills_count = len(skills)
@@ -121,7 +102,25 @@ class ScoreCandidates:
 
         # Get a list of candidates suitable or this job along with their score,
         # which indicates their relevance to the job
-        candidates = self.match_candidate_skills(re_skills, candidates)
+
+        # Match candidate skills
+        # Pick relevant features from candidate data
+        candidates.drop(candidates.columns.difference(
+            ['candidateid', 'candidatename', 'resumecontent', 'candidateskills', 'zipcode', 'State']
+        ), 1, inplace=True)
+        candidates['candidateskills'].fillna(' ', inplace=True)
+
+        # This feature is for candidate score in regards to the requirement we are processing
+        candidates.insert(len(candidates.columns), 'PercentageScore', '')
+
+        for i in candidates.index:
+            # Clean candidates data
+            candidates.at[i, 'resumecontent'] = self.cleanhtml(candidates.loc[i, 'resumecontent'])
+            candidates.at[i, 'candidateskills'] = self.cleanhtml(candidates.loc[i, 'candidateskills'])
+            candidates.at[i, 'PercentageScore'] = self.get_percentage_score(re_skills,
+                                                                            candidates.loc[i, 'resumecontent'] + ' ' +
+                                                                            candidates.loc[i, 'candidateskills'])
+
         candidates.drop(candidates[candidates['PercentageScore'] == 0].index, inplace=True)
         candidates.sort_values(by='PercentageScore', ascending=False, ignore_index=True, inplace=True)
 
