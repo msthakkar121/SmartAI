@@ -20,21 +20,21 @@ class ScoreCandidates:
         pass
 
     def cleanhtml(self, raw_html):
-        return re.sub(' +', ' ', str(re.sub(re.compile('<.*?>'), ' ', str(raw_html)).lower().translate(str.maketrans({
-            '\n': ' ',
-            '\t': ' ',
-            '\r': ' ',
-            '&nbsp;': ' ',
-            '"': ' ',
-            '. ': ' ',
-            ', ': ' ',
-            ',': ' ',
-            ': ': ' ',
-            ':': ' ',
-            '? ': ' ',
-            '?': ' ',
-            '&amp;': 'and'
-        })))).strip()
+        return re.sub(' +', ' ', str(re.sub(re.compile('<.*?>'), ' ', str(raw_html)).lower().replace(
+            '\n', ' ').replace(
+            '\t', ' ').replace(
+            '\r', ' ').replace(
+            '&nbsp;', ' ').replace(
+            '"', ' ').replace(
+            '. ', ' ').replace(
+            ', ', ' ').replace(
+            ',', ' ').replace(
+            ': ', ' ').replace(
+            ':', ' ').replace(
+            '? ', ' ').replace(
+            '?', ' ').replace(
+            '&amp;', 'and')
+        )).strip()
 
     def get_requirement_skills(self, job_desc):
         # Get SourcePros Skills
