@@ -20,23 +20,21 @@ class ScoreCandidates:
         pass
 
     def cleanhtml(self, raw_html):
-        # Remove HTML Tags
-        cleanre = re.compile('<.*?>')
-        cleantext = re.sub(cleanre, ' ', str(raw_html))
-
-        # To lower
-        cleantext = cleantext.lower()
-
-        # Remove certain characters
-        chars = ['\n', '\t', '\r', '&nbsp;', '"', '. ', ', ', ',', ': ', ':', '? ', '?']
-        for char in chars:
-            cleantext = cleantext.replace(char, ' ')
-
-        cleantext = cleantext.replace('&amp;', 'and')
-
-        # Strip multiple whitspaces to a single one
-        cleantext = re.sub(' +', ' ', str(cleantext)).strip()
-        return cleantext
+        return re.sub(' +', ' ', str(re.sub(re.compile('<.*?>'), ' ', str(raw_html)).lower().translate(str.maketrans({
+            '\n': ' ',
+            '\t': ' ',
+            '\r': ' ',
+            '&nbsp;': ' ',
+            '"': ' ',
+            '. ': ' ',
+            ', ': ' ',
+            ',': ' ',
+            ': ': ' ',
+            ':': ' ',
+            '? ': ' ',
+            '?': ' ',
+            '&amp;': 'and'
+        })))).strip()
 
     def get_requirement_skills(self, job_desc):
         # Get SourcePros Skills
@@ -77,17 +75,13 @@ class ScoreCandidates:
         return re_skills
 
     def get_percentage_score(self, skills, resume_data):
-        percentage_score = 0
-        total_skills_count = len(skills)
         matching_skills_count = 0
 
         for skill in skills:
-            skill = str(skill).lower()
-            if re.search(r'\b' + re.escape(skill) + r'\b', str(resume_data)):
+            if re.search(r'\b' + re.escape(str(skill).lower()) + r'\b', str(resume_data)):
                 matching_skills_count = matching_skills_count + 1
 
-        percentage_score = (matching_skills_count * 100) / total_skills_count
-        return percentage_score
+        return (matching_skills_count * 100) / len(skills)
 
     def score_candidates(self, requirement, candidates):
         # Clean job data
