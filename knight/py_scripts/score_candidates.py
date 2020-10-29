@@ -20,21 +20,23 @@ class ScoreCandidates:
         pass
 
     def cleanhtml(self, raw_html):
-        return re.sub(' +', ' ', str(re.sub(re.compile('<.*?>'), ' ', str(raw_html)).lower().replace(
-            '\n', ' ').replace(
-            '\t', ' ').replace(
-            '\r', ' ').replace(
-            '&nbsp;', ' ').replace(
-            '"', ' ').replace(
-            '. ', ' ').replace(
-            ', ', ' ').replace(
-            ',', ' ').replace(
-            ': ', ' ').replace(
-            ':', ' ').replace(
-            '? ', ' ').replace(
-            '?', ' ').replace(
-            '&amp;', 'and')
-        )).strip()
+        # Remove HTML Tags
+        cleanre = re.compile('<.*?>')
+        cleantext = re.sub(cleanre, ' ', str(raw_html))
+
+        # To lower
+        cleantext = cleantext.lower()
+
+        # Remove certain characters
+        chars = ['\n', '\t', '\r', '&nbsp;', '"', '. ', ', ', ',', ': ', ':', '? ', '?']
+        for char in chars:
+            cleantext = cleantext.replace(char, ' ')
+
+        cleantext = cleantext.replace('&amp;', 'and')
+
+        # Strip multiple whitspaces to a single one
+        cleantext = re.sub(' +', ' ', str(cleantext)).strip()
+        return cleantext
 
     def get_requirement_skills(self, job_desc):
         # Get SourcePros Skills
@@ -135,7 +137,7 @@ class ScoreCandidates:
         number_of_candidates = len(candidates_to_email)
 
         # Store all candidates
-        candidates.to_csv(str(requirement['RequirementID']) + '_candidates.csv')
+        # candidates.to_csv(str(requirement['RequirementID']) + '_candidates.csv')
 
         # Normalize scores in the range of 80% to 100%
         candidates_to_email['PercentageScore'] = [(float(i) * 20 / max(candidates_to_email['PercentageScore'])) + 80 for
@@ -150,7 +152,7 @@ class ScoreCandidates:
         obj.email_candidates(requirement['RequirementID'], csv_candidate_ids, csv_scores)
 
         logger.log('(' + str(datetime.now()) + ') Shortlisted ' + str(
-            number_of_candidates) + 'candidates for requirement ' + str(len(requirement['RequirementID'])) + '.')
+            number_of_candidates) + 'candidates for requirement ' + requirement['RequirementID'] + '.')
 
         print(number_of_candidates, ' candidates shortlisted...!!!')
         del [[candidates, candidates_to_email]]
