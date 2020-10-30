@@ -39,7 +39,6 @@ class FetchNewOrModifiedCandidates:
         # Get the data
         obj = FNMC()
         df = obj.fetch_new_or_modified_candidates()
-        df['resumecontent'] = df['resumecontent'].to_string()
         obj.connection.close()
 
         print('\n\n', df.head(), '\n\nFetched ', len(df), 'candidates from the database.')
@@ -50,7 +49,7 @@ class FetchNewOrModifiedCandidates:
             search = SearchEngine(simple_zipcode=True)
             df['State'] = ''
             for i in df.index:
-                df['State'][i] = search.by_zipcode(df['ZIPCode'][i]).state
+                df.loc[i, 'State'] = search.by_zipcode(df['ZIPCode'][i]).state
 
             # Remove Invalid States
             df = df[df.State.notnull()]
@@ -58,7 +57,6 @@ class FetchNewOrModifiedCandidates:
             for state in df.State.unique():
                 state_df = pd.read_pickle(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.pkl')
                 state_df.drop(columns=list(state_df.filter(regex='Unnamed:')), inplace=True)
-                state_df['resumecontent'] = state_df['resumecontent'].to_string()
                 new_candidates_for_state = df[df['State'] == state]
                 new_candidates_for_state.reset_index(drop=True, inplace=True)
 
