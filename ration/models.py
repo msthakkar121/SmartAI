@@ -19,6 +19,8 @@ class TaskExecutionTimings(models.Model):
     last_execution_time = models.DateTimeField(default=datetime.now,
                                                help_text='The created/updated time for the last record fetched by the task.')
 
+    is_running = models.BooleanField(default=False, verbose_name='Is Task Running')
+
     class Meta:
         verbose_name = "TaskExecutionTiming"
         verbose_name_plural = "TaskExecutionTimings"

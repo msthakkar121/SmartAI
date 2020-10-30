@@ -7,7 +7,7 @@ from ration.models import TaskExecutionTimings
 # Register your models here.
 
 class TaskExecutionTimingsAdmin(admin.ModelAdmin):
-    list_display = ('id', 'task_name', 'last_execution_time')
+    list_display = ('id', 'task_name', 'last_execution_time', 'is_running')
 
 
 admin.site.register(TaskExecutionTimings, TaskExecutionTimingsAdmin)
