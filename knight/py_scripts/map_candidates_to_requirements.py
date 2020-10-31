@@ -47,7 +47,7 @@ class MapCandidatesToRequirements:
             for zipcode in zipcodes:
                 obj_zipcode = search.by_zipcode(zipcode)
                 if not obj_zipcode.lat or not obj_zipcode.lng:
-                    break
+                    continue
                 in_30_miles = search.by_coordinates(obj_zipcode.lat, obj_zipcode.lng, radius=30, returns=50000)
 
                 my_candidates = pd.DataFrame()
