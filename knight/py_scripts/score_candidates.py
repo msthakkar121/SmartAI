@@ -155,6 +155,4 @@ class ScoreCandidates:
             number_of_candidates) + 'candidates for requirement ' + requirement['RequirementID'] + '.')
 
         print(number_of_candidates, ' candidates shortlisted...!!!')
-        del [[candidates, candidates_to_email]]
-        gc.collect()
         pass
