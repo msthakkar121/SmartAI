@@ -79,7 +79,7 @@ class FetchNewOrModifiedCandidates:
                 # candidates.writerow(state_df.columns.tolist())
                 # candidates.writerows(state_df.values.tolist())
                 # file.close()
-                state_df.to_pickle(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.pkl')
+                state_df.to_pickle(BASE_DIR + '/ration/data/candidates/state_wise/' + state + '.pkl', protocol=0)
                 del [[state_df]]
                 gc.collect()
         del [[df]]

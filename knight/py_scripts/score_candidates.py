@@ -108,7 +108,7 @@ class ScoreCandidates:
 
         # This feature is for candidate score in regards to the requirement we are processing
         candidates.insert(len(candidates.columns), 'PercentageScore', '')
-
+        candidates.reset_index(inplace=True, drop=True)
         for i in candidates.index:
             # Clean candidates data
             # candidates.at[i, 'resumecontent'] = self.cleanhtml(candidates.loc[i, 'resumecontent'])

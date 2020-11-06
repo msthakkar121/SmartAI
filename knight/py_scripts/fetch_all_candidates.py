@@ -49,8 +49,9 @@ class FetchAllCandidates:
         for state in state_abbr.STATE_ABBR_SHORT_TO_LONG:
             dict_states_dframes[state] = pd.DataFrame(columns=df.columns)
             dict_states_dframes[state] = df[df['State'] == state]
+            dict_states_dframes[state].reset_index(inplace=True, drop=True)
             try:
-                dict_states_dframes[state].to_pickle(data_path + '/' + state + '.pkl')
+                dict_states_dframes[state].to_pickle(data_path + '/' + state + '.pkl', protocol=0)
             except OSError as ose:
                 print('\nError saving data.\n', ose)
             except Exception as e:
